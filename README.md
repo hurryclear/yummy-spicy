@@ -60,7 +60,7 @@
 
 ### yummy-pojo
 
-![image-20250611203907527](/Users/hurjiang/Documents/101_cs_hc/101_cs_code/yummy-spicy/assets/README.assets/image-20250611203907527.png)
+![image-20250611203907527](./assets/README.assets/image-20250611203907527.png)
 
 | Name                           | ..   |
 | ------------------------------ | ---- |
