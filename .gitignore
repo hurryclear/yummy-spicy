@@ -1,0 +1,7 @@
+yummy-backend/yummy-pojo/target/
+.idea
+*.iml
+*.class
+*Test.java
+**/test/
+yummy-resource
