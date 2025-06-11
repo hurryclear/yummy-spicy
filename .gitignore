@@ -1,4 +1,6 @@
 yummy-backend/yummy-pojo/target/
+yummy-backend/yummy-common/target/
+yummy-backend/yummy-server/target/
 .idea
 *.iml
 *.class
