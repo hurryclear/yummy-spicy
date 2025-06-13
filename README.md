@@ -6,6 +6,21 @@
 
 <img src="assets/README.assets/image-20250410194031377.png" alt="image-20250410194031377" style="zoom:80%;" />
 
+# API 
+
+## API Design
+
+- api design / frontend and backend development
+  ![image-20250613111540100](./assets/README.assets/image-20250613111540100.png)
+
+## API Manager
+
+- Yapi
+
+## API Testing
+
+- Swagger
+
 # Frontend
 
 ## How to start frontend project
