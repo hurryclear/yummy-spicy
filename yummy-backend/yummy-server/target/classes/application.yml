@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 4041
 
 spring:
   profiles:
@@ -18,7 +18,7 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.sky.entity
   configuration:
-    #开启驼峰命名
+    # map underscore name to camel
     map-underscore-to-camel-case: true
 
 logging:

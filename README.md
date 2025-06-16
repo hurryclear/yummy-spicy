@@ -96,6 +96,7 @@
 # Database
 
 - is designed and created already in `yummy_spicy.sql`
+- 
 
 # Backend
 
@@ -122,4 +123,80 @@
 ## GlobalExceptionHandler
 
 - a centralized mechanism that catches and handles unhandled or unexpected exceptions that occur anywhere in the application ==> it avoids writing repetitive try-catch block in multiple places
+
+
+
+## Add new employee
+
+- Controller
+  ```java
+  @PostMapping
+  @ApiOperation("Add new employee")
+  public Result save(@RequestBody EmployeeDTO employeeDTO) {
+      log.info("add new employee: {}", employeeDTO);
+      employeeService.save(employeeDTO);
+      return Result.success();
+  }
+  ```
+
+- EmployeeServiceImpl
+  ```java
+  public void save(EmployeeDTO employeeDTO) {
+  
+  		Employee employee = new Employee();
+      // object property copy
+      BeanUtils.copyProperties(employeeDTO, employee);
+      // set the rest properties
+      employee.setStatus(StatusConstant.ENABLE);
+      employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+      employee.setCreateTime(LocalDateTime.now());
+      employee.setUpdateTime(LocalDateTime.now());
+      // #TODO: id of creator and editor
+      employee.setCreateUser(10L);
+      employee.setUpdateUser(10L);
+  
+      employeeMapper.insert(employee);
+  }
+  ```
+
+  
+
+- EmployeeMapper
+  ```java
+  @Insert("insert into employee (name, username, password, phone, sex, id_number, status, " +
+              "create_time, update_time, create_user, update_user) " + "values " +
+              "(#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, " +
+              "#{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
+      void insert(Employee employee);
+  ```
+
+
+
+### Exception handle for unique username
+
+- `username` is unique in the database
+
+- if you want to add another user with the existing username, you will get the following error: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'jiang' for key 'employee.idx_username' ![image-20250616152205393](./assets/README.assets/image-20250616152205393.png)
+
+- Solution: handle the exception with GlobalExceptionHandler
+  ```java
+  @ExceptionHandler
+  public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
+      String message = ex.getMessage();
+      if(message.contains("Duplicate entry")) {
+          String[] split = message.split(" ");
+          String username = split[2];
+          String msg = username + MessageConstant.ALREADY_EXISTS;
+          return Result.error(msg);
+      } else {
+          return Result.error(MessageConstant.UNKNOWN_ERROR);
+      }
+  }
+  ```
+
+  
+
+### get/set creator/editor of new employee
+
+![image-20250616154309308](./assets/README.assets/image-20250616154309308.png)
 
