@@ -26,6 +26,12 @@ public interface EmployeeMapper {
 
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /*
+    please be aware of _
+        <if test="idNumber != null">id_Number = #{idNumber},</if>
+        <if test="updateTime != null">update_Time = #{updateTime},</if>
+        <if test="updateUser != null">update_User = #{updateUser},</if>
+     */
     void update(Employee employee);
 
     @Select("select * from employee where id = #{name}")
