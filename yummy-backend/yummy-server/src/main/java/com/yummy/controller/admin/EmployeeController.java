@@ -120,4 +120,16 @@ public class EmployeeController {
         employeeService.changeEmployeeStatus(status, id);
         return Result.success();
     }
+
+    /**
+     * get employee by id
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("get the employee through id")
+    public Result<Employee> getById(@PathVariable Long id) {
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
 }
