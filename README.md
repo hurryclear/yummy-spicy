@@ -200,3 +200,59 @@
 
 ![image-20250616154309308](./assets/README.assets/image-20250616154309308.png)
 
+- Solution: ThreadLocal
+  ```java
+  public class BaseContext {
+  
+      public static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
+      public static void setCurrentId(Long id) {
+          threadLocal.set(id);
+      }
+      public static Long getCurrentId() {
+          return threadLocal.get();
+      }
+      public static void removeCurrentId() {
+          threadLocal.remove();
+      }
+  }
+  ```
+
+- Encapsulate ThreadLocal in BaseContext //#TODO: What is ThreadLocal?
+
+  - ThreadLocal: every current thread own the same storage?
+
+
+
+## Employee page query
+
+### PageHelper
+
+### Frontend ==> Backend
+
+- Frontend passes data to backend: `name`, `page`, `pageSize` 
+
+- we use EmployeePageQueryDTO to encapsulate the data
+  ```java
+  public class EmployeePageQueryDTO implements Serializable {
+    private String name;
+    private int pageNumber;
+    private int pageSize;
+  }
+  ```
+
+- 
+
+### Backend ==> Frontend
+
+- `PageResult`: the result of page query will be encapsulated in this class
+
+  ```java
+  public class PageResult implements Serializable {
+    private long total; // 
+    private List records; // the data/employees of the current page
+  }
+  ```
+
+  
+
+- 
