@@ -155,6 +155,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         BeanUtils.copyProperties(employeeDTO, employee);
 
         employee.setUpdateTime(LocalDateTime.now());
+        // how can you get the id of the current login employee? ThreadLocal
         employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.update(employee);

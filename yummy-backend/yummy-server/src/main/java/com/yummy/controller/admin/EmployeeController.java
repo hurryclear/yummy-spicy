@@ -121,18 +121,18 @@ public class EmployeeController {
         return Result.success();
     }
 
+    // to edit and update the employee we need two api: get the employee by id and update employee
     /**
      * get employee by id
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    @ApiOperation("get the employee through id")
+    @ApiOperation("get the employee by id")
     public Result<Employee> getById(@PathVariable Long id) {
         Employee employee = employeeService.getById(id);
         return Result.success(employee);
     }
-
     @PutMapping
     @ApiOperation("update employee")
     public Result update(@RequestBody EmployeeDTO employeeDTO) {
