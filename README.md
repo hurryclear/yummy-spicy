@@ -259,4 +259,13 @@
 
   
 
-- 
+
+
+
+
+## Change employee status
+
+### pass current status through path
+
+### mapper xml update
+

@@ -119,4 +119,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total, records);
     }
 
+    @Override
+    public void changeEmployeeStatus(Integer status, Long id) {
+        // update employee set status = ? where id = ?
+        // instead of passing only status and id we can pass Employee
+//        employeeMapper.update(status, id);
+
+        // we need a new employee: 2 methods
+        // 1. traditional
+//        Employee employee = new Employee();
+//        employee.setStatus(status);
+//        employee.setId(id);
+
+        // 2. Builder ==> easier
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+
+        employeeMapper.update(employee);
+    }
 }

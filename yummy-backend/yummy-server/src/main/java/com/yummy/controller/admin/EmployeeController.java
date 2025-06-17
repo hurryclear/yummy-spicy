@@ -11,6 +11,7 @@ import com.yummy.result.Result;
 import com.yummy.service.EmployeeService;
 import com.yummy.utils.JwtUtil;
 import com.yummy.vo.EmployeeLoginVO;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,5 +105,19 @@ public class EmployeeController {
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         // Result: code, msg, data
         return Result.success(pageResult);
+    }
+
+    /**
+     * change employees' status
+     * status will be passed through the path
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("change employee status")
+    public Result changeEmployeeStatus(@PathVariable Integer status, Long id) {
+        employeeService.changeEmployeeStatus(status, id);
+        return Result.success();
     }
 }
