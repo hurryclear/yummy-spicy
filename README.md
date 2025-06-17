@@ -124,6 +124,10 @@
 
 - a centralized mechanism that catches and handles unhandled or unexpected exceptions that occur anywhere in the application ==> it avoids writing repetitive try-catch block in multiple places
 
+## Message converter of Spring MVC
+
+
+
 
 
 ## Add new employee
