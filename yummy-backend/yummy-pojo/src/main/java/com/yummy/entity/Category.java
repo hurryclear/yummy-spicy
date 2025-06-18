@@ -17,27 +17,27 @@ public class Category implements Serializable {
 
     private Long id;
 
-    //类型: 1菜品分类 2套餐分类
+    // type: 1-dish, 2-set
     private Integer type;
 
-    //分类名称
+    // category name
     private String name;
 
-    //顺序
+    // sort
     private Integer sort;
 
-    //分类状态 0标识禁用 1表示启用
+    // category status: 0-disable, 1-enable
     private Integer status;
 
-    //创建时间
+    // create time
     private LocalDateTime createTime;
 
-    //更新时间
+    // update time
     private LocalDateTime updateTime;
 
-    //创建人
+    // create user
     private Long createUser;
 
-    //修改人
+    // update user
     private Long updateUser;
 }

@@ -275,3 +275,7 @@
 
 ### update employee
 
+## Category - add new category
+
+
+
