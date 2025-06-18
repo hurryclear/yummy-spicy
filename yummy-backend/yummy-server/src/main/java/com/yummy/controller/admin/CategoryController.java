@@ -2,6 +2,7 @@ package com.yummy.controller.admin;
 
 import com.yummy.dto.CategoryDTO;
 import com.yummy.dto.CategoryPageQueryDTO;
+import com.yummy.entity.Category;
 import com.yummy.result.PageResult;
 import com.yummy.result.Result;
 import com.yummy.service.CategoryService;
@@ -42,5 +43,13 @@ public class CategoryController {
         log.info("Category page query: {}", categoryPageQueryDTO);
         PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    @PutMapping
+    @ApiOperation("Update/Edit category")
+    public Result<String> update(@RequestBody CategoryDTO categoryDTO) {
+        log.info("Update/edit category: {}", categoryDTO);
+        categoryService.update(categoryDTO);
+        return Result.success();
     }
 }

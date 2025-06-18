@@ -1,6 +1,7 @@
 package com.yummy.service.impl;
 
 import com.fasterxml.jackson.databind.ser.Serializers;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.yummy.constant.StatusConstant;
@@ -52,5 +53,16 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> records = page.getResult();
 
         return new PageResult(total, records);
+    }
+
+    @Override
+    public void update(CategoryDTO categoryDTO) {
+        Category category = Category.builder()
+                .updateTime(LocalDateTime.now())
+                .updateUser(BaseContext.getCurrentId())
+                .build();
+        BeanUtils.copyProperties(categoryDTO, category);
+
+        categoryMapper.update(category);
     }
 }
