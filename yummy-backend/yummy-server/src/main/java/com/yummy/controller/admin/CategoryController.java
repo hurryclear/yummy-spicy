@@ -85,5 +85,13 @@ public class CategoryController {
         categoryService.deleteById(id);
         return Result.success();
     }
+
+
+    // #TODO:"/list" api not finish yet
+//    @GetMapping("/list")
+//    public Result<Category> list(String type) {
+//        return null;
+//    }
+
 }
 
