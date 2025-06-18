@@ -52,4 +52,13 @@ public class CategoryController {
         categoryService.update(categoryDTO);
         return Result.success();
     }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("Change status of category")
+    public Result<String> changeStatus(@PathVariable Integer status, Long id) {
+        log.info("Change status: {}", status + id);
+        categoryService.changeStatus(status, id);
+        return Result.success();
+    }
 }
+
