@@ -45,6 +45,11 @@ public class CategoryController {
         return Result.success(pageResult);
     }
 
+    /**
+     * Update category
+     * @param categoryDTO
+     * @return
+     */
     @PutMapping
     @ApiOperation("Update/Edit category")
     public Result<String> update(@RequestBody CategoryDTO categoryDTO) {
@@ -53,11 +58,31 @@ public class CategoryController {
         return Result.success();
     }
 
+    /**
+     * Change status of category
+     * @param status
+     * @param id
+     * @return
+     */
     @PostMapping("/status/{status}")
     @ApiOperation("Change status of category")
     public Result<String> changeStatus(@PathVariable Integer status, Long id) {
+        // #TODO: how is "id" passed from frontend?
         log.info("Change status: {}", status + id);
         categoryService.changeStatus(status, id);
+        return Result.success();
+    }
+
+    /**
+     * Delete by id
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("Delete by id")
+    public Result<String> deleteById(Long id) {
+        // how is "id" passed from frontend?
+        categoryService.deleteById(id);
         return Result.success();
     }
 }

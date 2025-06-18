@@ -4,12 +4,16 @@ import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.yummy.constant.MessageConstant;
 import com.yummy.constant.StatusConstant;
 import com.yummy.context.BaseContext;
 import com.yummy.dto.CategoryDTO;
 import com.yummy.dto.CategoryPageQueryDTO;
 import com.yummy.entity.Category;
+import com.yummy.exception.DeletionNotAllowedException;
 import com.yummy.mapper.CategoryMapper;
+import com.yummy.mapper.DishMapper;
+import com.yummy.mapper.SetmealMapper;
 import com.yummy.result.PageResult;
 import com.yummy.service.CategoryService;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,6 +29,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private DishMapper dishMapper;
+    @Autowired
+    private SetmealMapper setmealMapper;
+
+    /**
+     * add category
+     * @param categoryDTO
+     */
     @Override
     public void addCategory(CategoryDTO categoryDTO) {
         // categoryDTO: id, type, name, sort
@@ -42,6 +56,11 @@ public class CategoryServiceImpl implements CategoryService {
         categoryMapper.insert(category);
     }
 
+    /**
+     * page query
+     * @param categoryPageQueryDTO
+     * @return
+     */
     @Override
     public PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO) {
 
@@ -55,6 +74,10 @@ public class CategoryServiceImpl implements CategoryService {
         return new PageResult(total, records);
     }
 
+    /**
+     * update
+     * @param categoryDTO
+     */
     @Override
     public void update(CategoryDTO categoryDTO) {
         Category category = Category.builder()
@@ -66,6 +89,12 @@ public class CategoryServiceImpl implements CategoryService {
         categoryMapper.update(category);
     }
 
+    /**
+     * change status
+     * @param status
+     * @param id
+     * how is "id" passed from frontend?
+     */
     @Override
     public void changeStatus(Integer status, Long id) {
         Category category = Category.builder()
@@ -75,5 +104,29 @@ public class CategoryServiceImpl implements CategoryService {
                 .updateTime(LocalDateTime.now())
                 .build();
         categoryMapper.update(category);
+    }
+
+
+    /**
+     * delete by id
+     * @param id
+     */
+    @Override
+    public void deleteById(Long id) {
+        // you must be careful when you want to delete a category
+        // the category could be bound with dishes or setmeals
+        // when you delete it, it will affect other data
+        // you have to search in dishes and setmeals if they are bound with this category id
+        Integer count = dishMapper.countByCategoryId(id);
+        if (count > 0) {
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
+        }
+        count = setmealMapper.countByCategoryId(id);
+        if (count > 0) {
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
+        }
+
+        categoryMapper.deleteById(id);
+
     }
 }

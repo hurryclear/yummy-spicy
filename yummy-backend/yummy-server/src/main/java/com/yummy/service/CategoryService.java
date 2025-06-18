@@ -12,4 +12,6 @@ public interface CategoryService {
     void update(CategoryDTO categoryDTO);
 
     void changeStatus(Integer status, Long id);
+
+    void deleteById(Long id);
 }

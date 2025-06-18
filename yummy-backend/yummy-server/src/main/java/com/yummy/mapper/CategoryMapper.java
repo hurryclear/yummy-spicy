@@ -3,6 +3,7 @@ package com.yummy.mapper;
 import com.github.pagehelper.Page;
 import com.yummy.dto.CategoryPageQueryDTO;
 import com.yummy.entity.Category;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,4 +20,11 @@ public interface CategoryMapper {
     Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
 
     void update(Category category);
+
+    /**
+     * delete by id
+     * @param id
+     */
+    @Delete("delete from category where id = #{id}")
+    void deleteById(Long id);
 }
