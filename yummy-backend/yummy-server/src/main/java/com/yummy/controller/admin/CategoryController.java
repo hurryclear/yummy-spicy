@@ -1,6 +1,7 @@
 package com.yummy.controller.admin;
 
 import com.yummy.dto.CategoryDTO;
+import com.yummy.dto.CategoryPageQueryDTO;
 import com.yummy.result.PageResult;
 import com.yummy.result.Result;
 import com.yummy.service.CategoryService;
@@ -30,4 +31,16 @@ public class CategoryController {
         return Result.success();
     }
 
+    /**
+     * Category page query
+     * @param categoryPageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("Category page query")
+    public Result<PageResult> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO) {
+        log.info("Category page query: {}", categoryPageQueryDTO);
+        PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
+        return Result.success(pageResult);
+    }
 }

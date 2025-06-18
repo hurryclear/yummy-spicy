@@ -1,5 +1,7 @@
 package com.yummy.mapper;
 
+import com.github.pagehelper.Page;
+import com.yummy.dto.CategoryPageQueryDTO;
 import com.yummy.entity.Category;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,4 +15,6 @@ public interface CategoryMapper {
             + "(#{id}, #{type}, #{name}, #{sort}, #{status}, #{createTime}, #{updateTime}, " +
             "#{createUser}, #{updateUser})")
     void insert(Category category);
+
+    Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
 }
