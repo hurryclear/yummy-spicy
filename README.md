@@ -277,9 +277,9 @@
 
 ## Category - add new category
 
-
-
 ## Category - page query
+
+#TODO: all about category need to be completed in .md file
 
 ## Auto fill public field
 
@@ -295,7 +295,6 @@
 - reflection
 
 ### Annotation: AutoFill
-
 
 
 ### Enum: OperationType

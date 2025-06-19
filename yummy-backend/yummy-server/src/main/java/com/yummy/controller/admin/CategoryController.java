@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin/category")
 @Slf4j
@@ -87,11 +89,17 @@ public class CategoryController {
     }
 
 
-    // #TODO:"/list" api not finish yet
-//    @GetMapping("/list")
-//    public Result<Category> list(String type) {
-//        return null;
-//    }
+    /**
+     * list all dishes by type
+     * @param type
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("List all dishes by type")
+    public Result<List<Category>> list(Integer type) {
+        List<Category> categoryList = categoryService.list(type);
+        return Result.success(categoryList);
+    }
 
 }
 
