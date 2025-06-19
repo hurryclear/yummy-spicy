@@ -1,8 +1,10 @@
 package com.yummy.mapper;
 
 import com.github.pagehelper.Page;
+import com.yummy.annotation.AutoFill;
 import com.yummy.dto.CategoryPageQueryDTO;
 import com.yummy.entity.Category;
+import com.yummy.enumeration.OperationType;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CategoryMapper {
 
+    @AutoFill(value =  OperationType.INSERT)
     @Insert("insert into category (id, type, name, sort, status, create_time, update_time, " +
             "create_user, update_user)"
             + "values"
@@ -19,6 +22,7 @@ public interface CategoryMapper {
 
     Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
 
+    @AutoFill(value = OperationType.UPDATE)
     void update(Category category);
 
     /**

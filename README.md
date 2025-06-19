@@ -281,3 +281,22 @@
 
 ## Category - page query
 
+## Auto fill public field
+
+![image-20250619102200616](./assets/README.assets/image-20250619102200616.png)
+
+![image-20250618134536690](./assets/README.assets/image-20250618134536690.png)
+
+![image-20250618134549106](./assets/README.assets/image-20250618134549106.png)
+
+- enum
+- annotation
+- AOP
+- reflection
+
+### Annotation: AutoFill
+
+
+
+### Enum: OperationType
+

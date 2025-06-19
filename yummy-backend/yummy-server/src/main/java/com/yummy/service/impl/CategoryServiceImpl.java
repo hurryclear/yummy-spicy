@@ -48,10 +48,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 //        category.setStatus(1); // what's the value by default?
         category.setStatus(StatusConstant.DISABLE);
-        category.setCreateTime(LocalDateTime.now());
-        category.setCreateUser(BaseContext.getCurrentId());
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId());
+//        category.setCreateTime(LocalDateTime.now());
+//        category.setCreateUser(BaseContext.getCurrentId());
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setUpdateUser(BaseContext.getCurrentId());
 
         categoryMapper.insert(category);
     }
@@ -81,8 +81,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void update(CategoryDTO categoryDTO) {
         Category category = Category.builder()
-                .updateTime(LocalDateTime.now())
-                .updateUser(BaseContext.getCurrentId())
+//                .updateTime(LocalDateTime.now())
+//                .updateUser(BaseContext.getCurrentId())
                 .build();
         BeanUtils.copyProperties(categoryDTO, category);
 
@@ -100,8 +100,8 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = Category.builder()
                 .status(status)
                 .id(id)
-                .updateUser(BaseContext.getCurrentId())
-                .updateTime(LocalDateTime.now())
+//                .updateUser(BaseContext.getCurrentId())
+//                .updateTime(LocalDateTime.now())
                 .build();
         categoryMapper.update(category);
     }
