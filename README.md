@@ -299,3 +299,14 @@
 
 ### Enum: OperationType
 
+## Alioss Util
+
+#TODO: not understand yet
+
+- `AliOss.upload()`
+
+
+
+## Add new dishes
+
+### 

@@ -7,3 +7,4 @@ yummy-backend/yummy-server/target/
 *Test.java
 **/test/
 yummy-resource
+application-dev.yml
