@@ -404,10 +404,19 @@
 
 ## update dishes
 
+
+
 ![image-20250623203524843](./assets/README.assets/image-20250623203524843.png)
+
+### get dish by id
 
 ![image-20250623203725586](./assets/README.assets/image-20250623203725586.png)
 
 ![image-20250623210238320](./assets/README.assets/image-20250623210238320.png)
 
+### update dish
+
 ![image-20250623203711196](./assets/README.assets/image-20250623203711196.png)
+
+![image-20250623212216092](./assets/README.assets/image-20250623212216092.png)
+

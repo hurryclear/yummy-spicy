@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -102,6 +103,11 @@ public class DishServiceImpl implements DishService {
         }
     }
 
+    /**
+     * get dish vo (dish with flavors) by id
+     * @param id
+     * @return
+     */
     @Override
     public DishVO getByIdWithFlavors(Long id) {
         Dish dish = dishMapper.getById(id);
@@ -110,5 +116,29 @@ public class DishServiceImpl implements DishService {
         BeanUtils.copyProperties(dish, dishVO);
         dishVO.setFlavors(dishFlavors);
         return dishVO;
+    }
+
+    /**
+     * update dish with its flavors
+     * @param dishDTO
+     */
+    @Override
+    public void updateWithFlavor(DishDTO dishDTO) {
+        // 1. update dish basic items
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+        dishMapper.update(dish);
+
+        // 2. update dish flavors
+        // firstly delete all old/current dish flavors
+        dishFlavorMapper.deleteByDishId(dishDTO.getId());
+        // secondly add new list of dish flavors
+        List<DishFlavor> dishFlavors = dishDTO.getFlavors();
+        if (dishFlavors != null && dishFlavors.size() > 0) {
+            dishFlavors.forEach(dishFlavor -> {
+                dishFlavor.setDishId(dishDTO.getId());
+            });
+            dishFlavorMapper.insertBatch(dishFlavors);
+        }
     }
 }

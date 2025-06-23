@@ -1,5 +1,6 @@
 package com.yummy.controller.admin;
 
+import com.yummy.constant.MessageConstant;
 import com.yummy.dto.DishDTO;
 import com.yummy.dto.DishPageQueryDTO;
 import com.yummy.result.PageResult;
@@ -7,6 +8,7 @@ import com.yummy.result.Result;
 import com.yummy.service.DishService;
 import com.yummy.vo.DishVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
@@ -81,6 +83,14 @@ public class DishController {
         log.info("get dish by id: {}", id);
         DishVO dishVO = dishService.getByIdWithFlavors(id);
         return Result.success(dishVO);
+    }
+
+    @PutMapping
+    @ApiOperation("update dish")
+    public Result update(@RequestBody DishDTO dishDTO) {
+        log.info("update dish: {}", dishDTO);
+        dishService.updateWithFlavor(dishDTO);
+        return Result.success();
     }
 
 }
