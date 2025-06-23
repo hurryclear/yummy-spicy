@@ -311,7 +311,7 @@
 
 ![image-20250623091013837](./assets/README.assets/image-20250623091013837.png)
 
-### upload picture and store locally ("\upload")
+### upload picture and store locally
 
 - WebMvcConfiguration ==> set up static resource mapping
   ```java
@@ -366,5 +366,34 @@
 
   
 
-### "\add"
+## dish page query
 
+- Frontend pass `DishDTO` to the Backend
+
+- Controller receive `DishDTO` and Controller will return `Result<PageResult>` back to Frontend
+
+- `DishServiceImpl`:
+
+  - `Page<DishVO> page = dishMapper.pageQuery(dishPageQueryDTO);` 
+
+- `DishMapper.xml` 
+
+  ```xml
+  <select id="pageQuery" resultType="com.yummy.vo.DishVO">
+          select d.*, c.name as categoryName from dish d left join category c on d.category_id = c.id
+      <where>
+          <if test="name != null">
+              and d.name like concat('%', #{name}, '%')
+          </if>
+          <if test="categoryId != null">
+              and d.category_id = #{categoryId}
+          </if>
+          <if test="status != null">
+              and d.status = #{status}
+          </if>
+      </where>
+      order by d.create_time desc
+  </select>
+  ```
+
+  
