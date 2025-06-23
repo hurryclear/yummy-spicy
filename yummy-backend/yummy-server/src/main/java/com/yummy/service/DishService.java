@@ -3,6 +3,7 @@ package com.yummy.service;
 import com.yummy.dto.DishDTO;
 import com.yummy.dto.DishPageQueryDTO;
 import com.yummy.result.PageResult;
+import com.yummy.vo.DishVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface DishService {
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
     void deleteByIds(List<Long> ids);
+
+    DishVO getByIdWithFlavors(Long id);
 }

@@ -5,6 +5,7 @@ import com.yummy.dto.DishPageQueryDTO;
 import com.yummy.result.PageResult;
 import com.yummy.result.Result;
 import com.yummy.service.DishService;
+import com.yummy.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class DishController {
 
     /**
      * add new dish with flavors
+     *
      * @param dishDTO
      * @return
      */
@@ -40,6 +42,7 @@ public class DishController {
 
     /**
      * dish page query
+     *
      * @param dishPageQueryDTO
      * @return
      */
@@ -53,6 +56,7 @@ public class DishController {
 
     /**
      * delete dishes by ids
+     *
      * @param ids
      * @return
      */
@@ -63,4 +67,20 @@ public class DishController {
         dishService.deleteByIds(ids);
         return Result.success();
     }
+
+    /**
+     * get dish by id
+     * when you want to edit/update dishes, you click one dish, it will show the current info of
+     * dish
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("get dish by id")
+    public Result<DishVO> getById(@PathVariable Long id) {
+        log.info("get dish by id: {}", id);
+        DishVO dishVO = dishService.getByIdWithFlavors(id);
+        return Result.success(dishVO);
+    }
+
 }

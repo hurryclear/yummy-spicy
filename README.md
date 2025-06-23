@@ -402,5 +402,12 @@
 
   ![image-20250623163812874](./assets/README.assets/image-20250623163812874.png)
 
+## update dishes
 
+![image-20250623203524843](./assets/README.assets/image-20250623203524843.png)
 
+![image-20250623203725586](./assets/README.assets/image-20250623203725586.png)
+
+![image-20250623210238320](./assets/README.assets/image-20250623210238320.png)
+
+![image-20250623203711196](./assets/README.assets/image-20250623203711196.png)
