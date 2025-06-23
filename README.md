@@ -303,10 +303,67 @@
 
 #TODO: not understand yet
 
-- `AliOss.upload()`
+- `AliOss.upload()` 
 
 
 
 ## Add new dishes
+
+![image-20250623091013837](./assets/README.assets/image-20250623091013837.png)
+
+### upload picture and store locally
+
+- WebMvcConfiguration ==> set up static resource mapping
+  ```java
+  protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+  
+    registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
+    registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    registry.addResourceHandler("/upload/**")
+            .addResourceLocations("file:" + uploadDir + "/");
+  }
+  ```
+
+- nginx !!! You have to set the reverse proxy !!!
+
+  ```nginx
+  location /upload/ {
+      proxy_pass http://localhost:4041/upload/;
+  }
+  ```
+
+- application-dev.yml
+  ```yaml
+  yummy:  
+  	file:
+      upload-dir: /Users/hurjiang/Documents/101_cs_hc/101_cs_code/yummy-spicy/yummy-backend/yummy-server/src/main/resources/upload
+      access-url: http://localhost:4040/upload
+  ```
+
+  
+
+- "\upload"
+
+  ```java
+  @PostMapping("/upload")
+  @ApiOperation("Upload files locally")
+  public Result<String> uploadLocally(MultipartFile file) {
+      String filename = file.getOriginalFilename();
+      String extension = filename.substring(filename.lastIndexOf('.'));
+      String newFileName = UUID.randomUUID().toString() + extension;
+      File dest = new File(uploadDir + File.separator + newFileName);
+      try {
+          file.transferTo(dest);
+          // 返回前端可访问的 URL
+          String fileUrl = accessUrl + "/" + newFileName;
+          return Result.success(fileUrl);
+      } catch (IOException e) {
+          log.error(MessageConstant.UPLOAD_FAILED, e);
+      }
+      return Result.error(MessageConstant.UPLOAD_FAILED);
+  }
+  ```
+
+  
 
 ### 
