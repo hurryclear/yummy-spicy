@@ -8,5 +8,10 @@ import java.util.List;
 @Mapper
 public interface SetmealDishMapper {
 
+    /**
+     * get setmeals by dish ids
+     * @param ids
+     * @return
+     */
     List<Long> getSetmealsByIds(List<Long> ids);
 }

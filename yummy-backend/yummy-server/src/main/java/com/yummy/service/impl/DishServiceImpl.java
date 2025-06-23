@@ -63,6 +63,11 @@ public class DishServiceImpl implements DishService {
 
     }
 
+    /**
+     * dish page query
+     * @param dishPageQueryDTO
+     * @return
+     */
     @Override
     public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
         PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
@@ -70,6 +75,10 @@ public class DishServiceImpl implements DishService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
+    /**
+     * delete dishes by ids
+     * @param ids
+     */
     @Override
     public void deleteByIds(List<Long> ids) {
         // traverse the list of ids

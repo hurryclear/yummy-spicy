@@ -11,6 +11,10 @@ public interface DishFlavorMapper {
     void insertBatch(List<DishFlavor> flavors);
 
 
+    /**
+     * delete dish_flavor by dish id
+     * @param id
+     */
     @Delete("delete from dish_flavor where dish_id = #{id}")
     void deleteByDishId(Long id);
 }
