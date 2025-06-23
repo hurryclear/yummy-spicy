@@ -1,11 +1,20 @@
-yummy-backend/yummy-pojo/target/
-yummy-backend/yummy-common/target/
-yummy-backend/yummy-server/target/
+# Build output
+target/
 **/target/
-.idea
+
+# IDE settings
+.idea/
 *.iml
+
+# Compiled class files
 *.class
+
+# Test files
 *Test.java
 **/test/
-yummy-resource
+
+# Env-specific configs
 **/application-dev.yml
+
+# (Optional) Custom folders
+yummy-resource/
