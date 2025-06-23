@@ -8,9 +8,12 @@ import com.yummy.service.DishService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -46,5 +49,18 @@ public class DishController {
         log.info("Dish page query: {}", dishPageQueryDTO);
         PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * delete dishes by ids
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("Delete dishes")
+    public Result delete(@RequestParam List<Long> ids) {
+        log.info("Delete dishes: {}", ids);
+        dishService.deleteByIds(ids);
+        return Result.success();
     }
 }

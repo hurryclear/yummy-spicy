@@ -5,8 +5,12 @@ import com.yummy.dto.DishPageQueryDTO;
 import com.yummy.result.PageResult;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 public interface DishService {
     void addWithFlavors(DishDTO dishDTO);
 
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    void deleteByIds(List<Long> ids);
 }

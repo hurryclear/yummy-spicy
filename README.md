@@ -396,4 +396,11 @@
   </select>
   ```
 
-  
+  ## delete dish
+
+  ![image-20250623163621464](./assets/README.assets/image-20250623163621464.png)
+
+  ![image-20250623163812874](./assets/README.assets/image-20250623163812874.png)
+
+
+
