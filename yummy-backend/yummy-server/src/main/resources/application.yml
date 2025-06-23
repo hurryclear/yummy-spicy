@@ -42,4 +42,7 @@ yummy:
     access-key-id: ${yummy.alioss.access-key-id}
     access-key-secret: ${yummy.alioss.access-key-secret}
     bucket-name: ${yummy.alioss.bucket-name}
+  file:
+    upload-dir: ${yummy.file.upload-dir}
+    access-url: ${yummy.file.access-url}
 
