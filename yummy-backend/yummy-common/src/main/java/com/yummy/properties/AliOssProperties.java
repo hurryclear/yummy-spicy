@@ -5,7 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "yummy.alioss")
+@ConfigurationProperties(prefix = "yummy.alioss") // read properties config and encapsulate them
+// into a java object ==> read application.yml
 @Data
 public class AliOssProperties {
 
