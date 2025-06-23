@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +25,9 @@ public class DishController {
 
     @PostMapping
     @ApiOperation("Add new dishes")
-    public Result<String> add(DishDTO dishDTO) {
+    public Result addWithFlavors(@RequestBody DishDTO dishDTO) {
         log.info("Add new dishes: {}", dishDTO);
-        dishService.add(dishDTO);
+        dishService.addWithFlavors(dishDTO);
         return Result.success();
     }
 }

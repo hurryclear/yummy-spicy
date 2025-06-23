@@ -22,8 +22,9 @@ public class DishServiceImpl implements DishService {
     @Autowired
     private DishFlavorMapper dishFlavorMapper;
     @Override
-    @Transactional // what and why?
-    public void add(DishDTO dishDTO) {
+    @Transactional // what and why? we operate two tables: dish and dish_flavor, in order to
+    // ensure the atomicity of our operation, we use this annotation
+    public void addWithFlavors(DishDTO dishDTO) {
         // DishDTO contains dish and dish_flavor
         // table: dish and dish_flavor
 

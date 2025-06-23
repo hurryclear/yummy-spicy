@@ -1,10 +1,11 @@
 yummy-backend/yummy-pojo/target/
 yummy-backend/yummy-common/target/
 yummy-backend/yummy-server/target/
+**/target/
 .idea
 *.iml
 *.class
 *Test.java
 **/test/
 yummy-resource
-application-dev.yml
+**/application-dev.yml

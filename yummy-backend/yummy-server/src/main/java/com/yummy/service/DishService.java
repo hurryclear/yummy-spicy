@@ -4,5 +4,5 @@ import com.yummy.dto.DishDTO;
 import org.springframework.stereotype.Service;
 
 public interface DishService {
-    void add(DishDTO dishDTO);
+    void addWithFlavors(DishDTO dishDTO);
 }

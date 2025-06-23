@@ -311,7 +311,7 @@
 
 ![image-20250623091013837](./assets/README.assets/image-20250623091013837.png)
 
-### upload picture and store locally
+### upload picture and store locally ("\upload")
 
 - WebMvcConfiguration ==> set up static resource mapping
   ```java
@@ -366,4 +366,5 @@
 
   
 
-### 
+### "\add"
+
