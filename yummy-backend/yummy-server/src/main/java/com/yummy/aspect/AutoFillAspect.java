@@ -66,10 +66,10 @@ public class AutoFillAspect {
                         .getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);
 
                 // pass value to the attributes through reflection
-                setCreateTime.invoke(now);
-                setUpdateTime.invoke(now);
-                setCreateUser.invoke(currentId);
-                setUpdateUser.invoke(currentId);
+                setCreateTime.invoke(entity, now);
+                setUpdateTime.invoke(entity, now);
+                setCreateUser.invoke(entity, currentId);
+                setUpdateUser.invoke(entity, currentId);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
