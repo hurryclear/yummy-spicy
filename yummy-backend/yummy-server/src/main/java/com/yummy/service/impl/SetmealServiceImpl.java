@@ -34,12 +34,12 @@ public class SetmealServiceImpl implements SetmealService {
         // because we use this in mybatis: <insert id="insert" useGeneratedKeys="true"
         // keyProperty="id">
         // so the automatically-generated id will return and we can get it
-        Long id = setmeal.getId();
+        Long setmealId = setmeal.getId();
 
         // add relationship between set meal and dishes into the "setmeal_dish" table
         List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
         for (SetmealDish setmealDish : setmealDishes) {
-            setmealDish.setSetmealId(id);
+            setmealDish.setSetmealId(setmealId);
         }
         setmealDishMapper.insert(setmealDishes);
 

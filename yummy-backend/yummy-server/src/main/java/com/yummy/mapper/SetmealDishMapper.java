@@ -18,6 +18,5 @@ public interface SetmealDishMapper {
      */
     List<Long> getSetmealsByIds(List<Long> ids);
 
-    @AutoFill(value = OperationType.INSERT)
     void insert(List<SetmealDish> setmealDishes);
 }
