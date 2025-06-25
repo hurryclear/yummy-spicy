@@ -3,6 +3,7 @@ package com.yummy.controller.admin;
 import com.yummy.constant.MessageConstant;
 import com.yummy.dto.DishDTO;
 import com.yummy.dto.DishPageQueryDTO;
+import com.yummy.entity.Dish;
 import com.yummy.result.PageResult;
 import com.yummy.result.Result;
 import com.yummy.service.DishService;
@@ -91,6 +92,15 @@ public class DishController {
         log.info("update dish: {}", dishDTO);
         dishService.updateWithFlavor(dishDTO);
         return Result.success();
+    }
+//    @GetMapping("/list/{categoryId}")
+    // how to pass category id from frontend to backend?
+    @GetMapping("/list")
+    @ApiOperation("list dishes by category id")
+    public Result<List<Dish>> listByCategoryId(Long categoryId) {
+         log.info("list dishes by category id: {}", categoryId);
+         List<Dish> dishList = dishService.listByCategoryId(categoryId);
+         return Result.success(dishList);
     }
 
 }

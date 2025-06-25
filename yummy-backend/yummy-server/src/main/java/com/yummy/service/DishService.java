@@ -2,6 +2,7 @@ package com.yummy.service;
 
 import com.yummy.dto.DishDTO;
 import com.yummy.dto.DishPageQueryDTO;
+import com.yummy.entity.Dish;
 import com.yummy.result.PageResult;
 import com.yummy.vo.DishVO;
 import org.springframework.stereotype.Service;
@@ -18,4 +19,6 @@ public interface DishService {
     DishVO getByIdWithFlavors(Long id);
 
     void updateWithFlavor(DishDTO dishDTO);
+
+    List<Dish> listByCategoryId(Long categoryId);
 }
