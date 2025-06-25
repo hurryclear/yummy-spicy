@@ -5,6 +5,7 @@ import com.yummy.dto.SetmealPageQueryDTO;
 import com.yummy.result.PageResult;
 import com.yummy.result.Result;
 import com.yummy.service.SetmealService;
+import com.yummy.vo.SetmealVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -59,6 +60,21 @@ public class SetmealController {
     // #TODO when to use @RequestParam?
     public Result delete(@RequestParam List<Long> ids) {
         setmealService.deleteBatch(ids);
+        return Result.success();
+    }
+
+    // 用来实现修改时的内容回显
+    @GetMapping("/{id}")
+    @ApiOperation("get setmeal by id")
+    public Result<SetmealVO> getById(@PathVariable Long id) {
+        SetmealVO setmealVO = setmealService.getByIdWithDish(id);
+        return Result.success(setmealVO);
+    }
+
+    @PutMapping
+    @ApiOperation("update setmeal")
+    public Result update(@RequestBody SetmealDTO setmealDTO) {
+        setmealService.update(setmealDTO);
         return Result.success();
     }
 }

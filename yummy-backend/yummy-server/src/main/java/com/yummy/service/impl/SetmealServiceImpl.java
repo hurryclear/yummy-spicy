@@ -16,8 +16,10 @@ import com.yummy.service.SetmealService;
 import com.yummy.vo.SetmealVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -95,5 +97,35 @@ public class SetmealServiceImpl implements SetmealService {
             setmealDishMapper.deleteBySetmealId(setmealId);
         });
         // setmealMapper.delete(id) or setmealMapper.deleteBatch(ids) ?
+    }
+
+    @Override
+    public SetmealVO getByIdWithDish(Long id) {
+        SetmealVO setmealVO = new SetmealVO();
+        Setmeal setmeal = setmealMapper.getById(id);
+        List<SetmealDish> setmealDishList = setmealDishMapper.getBySetmealId(id);
+        BeanUtils.copyProperties(setmeal, setmealVO);
+        setmealVO.setSetmealDishes(setmealDishList);
+        return setmealVO;
+    }
+
+    @Override
+    public void update(SetmealDTO setmealDTO) {
+        // 如何实现回显？ get by id ==> backend provide get by id api and frontend will use it to do
+        // "setmeal" table
+        Setmeal setmeal = new Setmeal();
+        BeanUtils.copyProperties(setmealDTO, setmeal);
+        setmealMapper.update(setmeal);
+        // "setmeal_dish" table
+        Long setmealId = setmealDTO.getId();
+        // 1. delete the old
+        setmealDishMapper.deleteBySetmealId(setmealId);
+        // 2. insert the new
+        List<SetmealDish> setmealDishList = setmealDTO.getSetmealDishes();
+        setmealDishList.forEach(setmealDish -> {
+            setmealDish.setSetmealId(setmealId);
+        });
+        setmealDishMapper.insert(setmealDishList);
+
     }
 }
