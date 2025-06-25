@@ -2,10 +2,13 @@ package com.yummy.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.yummy.constant.MessageConstant;
+import com.yummy.constant.StatusConstant;
 import com.yummy.dto.SetmealDTO;
 import com.yummy.dto.SetmealPageQueryDTO;
 import com.yummy.entity.Setmeal;
 import com.yummy.entity.SetmealDish;
+import com.yummy.exception.DeletionNotAllowedException;
 import com.yummy.mapper.SetmealDishMapper;
 import com.yummy.mapper.SetmealMapper;
 import com.yummy.result.PageResult;
@@ -61,5 +64,36 @@ public class SetmealServiceImpl implements SetmealService {
         PageHelper.startPage(setmealPageQueryDTO.getPage(), setmealPageQueryDTO.getPageSize());
         Page<SetmealVO> page = setmealMapper.pageQuery(setmealPageQueryDTO);
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    /**
+     * delete setmeals by ids
+     * @param ids
+     */
+    @Override
+    public void deleteBatch(List<Long> ids) {
+        // 1. can't delete if setmeal on sale (need to get the status first)
+//        for (Long id : ids) {
+//            Setmeal setmeal = setmealMapper.getById(id);
+//            if (setmeal.getStatus() == StatusConstant.ENABLE) {
+//                throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
+//            }
+//        }
+        // write more lambda
+        ids.forEach(id -> {
+            Setmeal setmeal = setmealMapper.getById(id);
+            if (setmeal.getStatus() == StatusConstant.ENABLE) {
+                throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
+            }
+        });
+
+        // 2. delete with for-loop
+        ids.forEach(setmealId -> {
+            // delete setmeal from "setmeal" table
+            setmealMapper.deleteById(setmealId);
+            // delete setmeal from "setmeal_dish" table
+            setmealDishMapper.deleteBySetmealId(setmealId);
+        });
+        // setmealMapper.delete(id) or setmealMapper.deleteBatch(ids) ?
     }
 }

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin/setmeal")
 @Api(tags = "setmeal api")
@@ -44,5 +46,19 @@ public class SetmealController {
     public Result<PageResult> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO) {
         PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * delete setmeals or setmeal
+     * can be used to delete one setmeal or many setmeals at once, depends on ids
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("delete meal-set")
+    // #TODO when to use @RequestParam?
+    public Result delete(@RequestParam List<Long> ids) {
+        setmealService.deleteBatch(ids);
+        return Result.success();
     }
 }
