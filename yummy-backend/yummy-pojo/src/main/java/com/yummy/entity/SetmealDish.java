@@ -21,18 +21,18 @@ public class SetmealDish implements Serializable {
 
     private Long id;
 
-    //套餐id
+    // setmeal id
     private Long setmealId;
 
-    //菜品id
+    //dish id
     private Long dishId;
 
-    //菜品名称 （冗余字段）
+    // dish name （冗余字段）
     private String name;
 
-    //菜品原价
+    // dish price or set meal price?
     private BigDecimal price;
 
-    //份数
+    // how many?
     private Integer copies;
 }

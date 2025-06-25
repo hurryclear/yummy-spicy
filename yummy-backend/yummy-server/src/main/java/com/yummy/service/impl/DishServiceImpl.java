@@ -54,6 +54,7 @@ public class DishServiceImpl implements DishService {
         BeanUtils.copyProperties(dishDTO, dish);
         dishMapper.insert(dish);
         // How to get the dish id after the new dish is added? #TODO: mybatis key-value return
+        // <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         Long id = dish.getId();
 
         // add into dish_flavor table

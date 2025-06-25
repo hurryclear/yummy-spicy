@@ -12,25 +12,25 @@ public class SetmealDTO implements Serializable {
 
     private Long id;
 
-    //分类id
+    // category id
     private Long categoryId;
 
-    //套餐名称
+    // set meal name
     private String name;
 
-    //套餐价格
+    // set meal price
     private BigDecimal price;
 
-    //状态 0:停用 1:启用
+    //status 0:disable 1:enable
     private Integer status;
 
-    //描述信息
+    // description
     private String description;
 
-    //图片
+    // image
     private String image;
 
-    //套餐菜品关系
+    // relationship between set meal and dishes
     private List<SetmealDish> setmealDishes = new ArrayList<>();
 
 }

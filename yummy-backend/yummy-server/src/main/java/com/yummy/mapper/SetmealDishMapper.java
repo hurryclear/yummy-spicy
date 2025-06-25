@@ -1,6 +1,9 @@
 package com.yummy.mapper;
 
+import com.yummy.annotation.AutoFill;
 import com.yummy.entity.Setmeal;
+import com.yummy.entity.SetmealDish;
+import com.yummy.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,4 +17,7 @@ public interface SetmealDishMapper {
      * @return
      */
     List<Long> getSetmealsByIds(List<Long> ids);
+
+    @AutoFill(value = OperationType.INSERT)
+    void insert(List<SetmealDish> setmealDishes);
 }

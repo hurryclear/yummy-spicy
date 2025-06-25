@@ -420,3 +420,34 @@
 
 ![image-20250623212216092](./assets/README.assets/image-20250623212216092.png)
 
+## Set meal
+
+### Task
+
+- Complete all business functions of the Package Management module, including:
+
+  - Adding new set meal
+  - set meal paging query
+  - Delete set meal
+  - Modify set meal
+  - enable or disable set meal
+
+- Requirements:
+  1. conduct requirement analysis based on product prototype, analyze the business rules
+  2. Design interfaces
+  3. sort out the relationship between tables (category table, dish table, set menu table, flavor table, set menu dish relationship table)
+  4. code implementation according to the interface design
+  5. testing the functionality through swagger interface documentation and front-end and back-end tuning respectively.
+
+### add new setmeal
+
+
+
+### setmeal paging query
+
+### delete setmeal
+
+### update setmeal
+
+### enable or disable setmeal
+
