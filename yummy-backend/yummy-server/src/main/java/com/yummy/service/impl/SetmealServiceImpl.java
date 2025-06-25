@@ -1,11 +1,16 @@
 package com.yummy.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.yummy.dto.SetmealDTO;
+import com.yummy.dto.SetmealPageQueryDTO;
 import com.yummy.entity.Setmeal;
 import com.yummy.entity.SetmealDish;
 import com.yummy.mapper.SetmealDishMapper;
 import com.yummy.mapper.SetmealMapper;
+import com.yummy.result.PageResult;
 import com.yummy.service.SetmealService;
+import com.yummy.vo.SetmealVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +48,18 @@ public class SetmealServiceImpl implements SetmealService {
         }
         setmealDishMapper.insert(setmealDishes);
 
+    }
+
+    /**
+     * setmeal page query
+     * @param setmealPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO) {
+
+        PageHelper.startPage(setmealPageQueryDTO.getPage(), setmealPageQueryDTO.getPageSize());
+        Page<SetmealVO> page = setmealMapper.pageQuery(setmealPageQueryDTO);
+        return new PageResult(page.getTotal(), page.getResult());
     }
 }

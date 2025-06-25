@@ -448,6 +448,27 @@
 
 ### setmeal paging query
 
+- User SetmealVO
+
+  ```java
+  Page<SetmealVO> page = setmealMapper.pageQuery(setmealPageQueryDTO);
+  ```
+
+- SQL
+  ```xml
+  <select id="pageQuery" resultType="com.yummy.vo.SetmealVO">
+      select sm.*, ct.name from setmeal sm left join category ct on sm.category_id = ct.id
+      <where>
+          <if test="name != null"> and sm.name like concat('%', #{name}, '%') </if>
+          <if test="categoryId != null"> and sm.category_id = #{categoryId}</if>
+          <if test="status != null"> and sm.status = #{status} </if>
+      </where>
+      order by create_time desc
+  </select>
+  ```
+
+  
+
 ### delete setmeal
 
 ### update setmeal
