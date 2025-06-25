@@ -441,7 +441,10 @@
 
 ### add new setmeal
 
+#### list dish by category id
 
+- How to search by name of dish?
+  ![image-20250625180449561](./assets/README.assets/image-20250625180449561.png)
 
 ### setmeal paging query
 

@@ -94,7 +94,7 @@ public class DishController {
         return Result.success();
     }
 //    @GetMapping("/list/{categoryId}")
-    // how to pass category id from frontend to backend?
+    // #TODO how to pass category id from frontend to backend?
     @GetMapping("/list")
     @ApiOperation("list dishes by category id")
     public Result<List<Dish>> listByCategoryId(Long categoryId) {

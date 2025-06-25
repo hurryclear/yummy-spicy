@@ -5,7 +5,6 @@ import com.yummy.dto.DishPageQueryDTO;
 import com.yummy.entity.Dish;
 import com.yummy.result.PageResult;
 import com.yummy.vo.DishVO;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

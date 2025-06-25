@@ -32,6 +32,10 @@ public interface DishMapper {
     @AutoFill(value = OperationType.UPDATE)
     void update(Dish dish);
 
-    @Select("select * from dish where category_id = #{categoryId}")
-    List<Dish> getByCategoryId(Long categoryId);
+//    @Select("select * from dish where category_id = #{categoryId}")
+//    List<Dish> getByCategoryId(Long categoryId); // this is not correct!
+//    Because you need also be able to search with the name of dish, if you only pass categoryId
+//    to mapper, how can database search dish by the name?
+
+    List<Dish> list(Dish dish);
 }

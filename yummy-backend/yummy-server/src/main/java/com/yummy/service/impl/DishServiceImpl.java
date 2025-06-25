@@ -1,6 +1,5 @@
 package com.yummy.service.impl;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.yummy.constant.MessageConstant;
@@ -9,7 +8,6 @@ import com.yummy.dto.DishDTO;
 import com.yummy.dto.DishPageQueryDTO;
 import com.yummy.entity.Dish;
 import com.yummy.entity.DishFlavor;
-import com.yummy.entity.Setmeal;
 import com.yummy.exception.DeletionNotAllowedException;
 import com.yummy.mapper.DishFlavorMapper;
 import com.yummy.mapper.DishMapper;
@@ -17,14 +15,11 @@ import com.yummy.mapper.SetmealDishMapper;
 import com.yummy.result.PageResult;
 import com.yummy.service.DishService;
 import com.yummy.vo.DishVO;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -145,7 +140,12 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public List<Dish> listByCategoryId(Long categoryId) {
-        List<Dish> dishList = dishMapper.getByCategoryId(categoryId);
+        Dish dish = Dish.builder()
+                .categoryId(categoryId)
+                .status(StatusConstant.ENABLE) // why do we need to do this?
+                .build();
+        // we pass Dish to mapper not category id, consider why?
+        List<Dish> dishList = dishMapper.list(dish);
         return dishList;
     }
 }
