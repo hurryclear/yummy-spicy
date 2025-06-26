@@ -71,10 +71,28 @@ public class SetmealController {
         return Result.success(setmealVO);
     }
 
+    /**
+     * update setmeal
+     * @param setmealDTO
+     * @return
+     */
     @PutMapping
     @ApiOperation("update setmeal")
     public Result update(@RequestBody SetmealDTO setmealDTO) {
         setmealService.update(setmealDTO);
+        return Result.success();
+    }
+
+    /**
+     * change status of setmeal through id and path variable "status"
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("change status of setmeal")
+    public Result changeStatus(@PathVariable Integer status, Long id) {
+        setmealService.changeStatus(status, id);
         return Result.success();
     }
 }

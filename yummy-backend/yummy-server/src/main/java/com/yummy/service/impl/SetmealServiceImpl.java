@@ -6,9 +6,12 @@ import com.yummy.constant.MessageConstant;
 import com.yummy.constant.StatusConstant;
 import com.yummy.dto.SetmealDTO;
 import com.yummy.dto.SetmealPageQueryDTO;
+import com.yummy.entity.Dish;
 import com.yummy.entity.Setmeal;
 import com.yummy.entity.SetmealDish;
 import com.yummy.exception.DeletionNotAllowedException;
+import com.yummy.exception.SetmealEnableFailedException;
+import com.yummy.mapper.DishMapper;
 import com.yummy.mapper.SetmealDishMapper;
 import com.yummy.mapper.SetmealMapper;
 import com.yummy.result.PageResult;
@@ -29,6 +32,8 @@ public class SetmealServiceImpl implements SetmealService {
     private SetmealMapper setmealMapper;
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private DishMapper dishMapper;
 
     /**
      * add new set meal
@@ -127,5 +132,35 @@ public class SetmealServiceImpl implements SetmealService {
         });
         setmealDishMapper.insert(setmealDishList);
 
+    }
+
+    /**
+     * change status of setmeal
+     * @param status
+     * @param id
+     */
+    @Override
+    public void changeStatus(Integer status, Long id) {
+        /* business rules
+           1. if the setmeal is on sale you can disable it
+           2. if the setmeal is not on sale you can enable it and you have to ensure that all
+           dishes within this setmeal are on sale, otherwise you can't enable this setmeal
+           3. customer can only see the setmeals which are on sale
+         */
+        if(status == StatusConstant.ENABLE) {
+            List<Dish> dishList = dishMapper.getBySetmealId(id);
+            if(dishList != null && dishList.size() > 0) {
+                dishList.forEach(dish -> {
+                    if(dish.getStatus() == StatusConstant.DISABLE) {
+                        throw new SetmealEnableFailedException(MessageConstant.SETMEAL_ENABLE_FAILED);
+                    }
+                });
+            }
+        }
+        Setmeal setmeal = Setmeal.builder()
+                .id(id)
+                .status(status)
+                .build();
+        setmealMapper.update(setmeal);
     }
 }
