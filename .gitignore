@@ -10,8 +10,8 @@ target/
 *.class
 
 # Test files
-*Test.java
-**/test/
+#*Test.java
+#**/test/
 
 # Env-specific configs
 **/application-dev.yml

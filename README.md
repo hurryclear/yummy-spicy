@@ -475,3 +475,21 @@
 
 ### enable or disable setmeal
 
+# Redis
+
+- in-memory storage
+- NoSQL: key-value
+- key: String
+- 5 data type for value
+  - String
+    - `set key value`
+    - `get key`
+    - `setex key seconds value` : set with expiration time
+    - `setnx key value` : set if the key not exist
+  - hash: field-value (similar with HashMap)
+    - for Object
+    - 
+  - list: sorted (similar with LinkedList)
+  - set: unsorted (similar with HashSet)
+  - sorted set: every element in set link with a score
+- 
