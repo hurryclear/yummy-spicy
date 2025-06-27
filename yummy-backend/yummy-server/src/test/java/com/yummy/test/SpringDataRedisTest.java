@@ -58,9 +58,9 @@ public class SpringDataRedisTest {
     @Test
     public void testList() {
         ListOperations listOperations = redisTemplate.opsForList();
-        listOperations.set("jiang", 1, "jiang");
-//        String data = (String) listOperations.index("1", 0);
-//        System.out.println(data);
+        listOperations.leftPushAll("mylist", "a", "b", "c");
+        String data = (String) listOperations.index("mylist", 0);
+        System.out.println(data);
     }
 
     @Test
