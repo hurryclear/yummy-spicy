@@ -52,16 +52,34 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      * @return
      */
     @Bean
-    public Docket docket() {
+    public Docket docket1() {
         ApiInfo apiInfo = new ApiInfoBuilder()
-                .title("苍穹外卖项目接口文档")
+                .title("yummy-spicy project api documentation")
                 .version("2.0")
-                .description("苍穹外卖项目接口文档")
+                .description("yummy-spicy project api documentation")
                 .build();
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("admin api")
                 .apiInfo(apiInfo)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.yummy.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.yummy.controller.admin"))
+                .paths(PathSelectors.any())
+                .build();
+        return docket;
+    }
+
+    @Bean
+    public Docket docket2() {
+        ApiInfo apiInfo = new ApiInfoBuilder()
+                .title("yummy-spicy project api documentation")
+                .version("2.0")
+                .description("yummy-spicy project api documentation")
+                .build();
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("user api")
+                .apiInfo(apiInfo)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.yummy.controller.user"))
                 .paths(PathSelectors.any())
                 .build();
         return docket;
