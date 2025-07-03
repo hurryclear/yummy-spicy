@@ -502,3 +502,17 @@
   - set: unsorted (similar with HashSet)
   - sorted set: every element in set link with a score
 - 
+
+# HttpClient
+
+- sub-project of Apache Jakarta Common
+
+- ```xml
+  <dependency>
+  	<groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version></version>
+  </dependency>
+  ```
+
+- 
