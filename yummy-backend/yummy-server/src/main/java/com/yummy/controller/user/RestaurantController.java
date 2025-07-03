@@ -28,7 +28,7 @@ public class RestaurantController {
      * user: get restaurant status
      * @return
      */
-    @GetMapping("/staus")
+    @GetMapping("/status")
     @ApiOperation("get restaurant status")
     public Result<Integer> getStatus() {
         Integer status = (Integer) redisTemplate.opsForValue().get(KEY);
