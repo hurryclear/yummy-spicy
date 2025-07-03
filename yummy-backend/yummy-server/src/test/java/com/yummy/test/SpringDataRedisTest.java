@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.*;
 
 import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
+//@SpringBootTest
 public class SpringDataRedisTest {
 
     @Autowired

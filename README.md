@@ -1,3 +1,7 @@
+# Project introduction also for CV
+
+
+
 # User needs
 
 # Stack
@@ -474,6 +478,11 @@
 ### update setmeal
 
 ### enable or disable setmeal
+
+## Restaurant status
+
+- no need to create a new table in MySQL for restaurant status, we use Redis!
+- 
 
 # Redis
 
