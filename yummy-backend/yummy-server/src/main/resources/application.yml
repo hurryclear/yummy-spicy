@@ -37,12 +37,15 @@ logging:
 
 yummy:
   jwt:
-    # jwt signature encrypt password jwt签名加密时使用的秘钥
-    admin-secret-key: itcast
+    # jwt signature encrypt password jwt 签名加密时使用的秘钥
+    admin-secret-key: hurryclear
     # jwt expiration time
     admin-ttl: 72000000
     # variable name of token passed from frontend 令牌名称
     admin-token-name: token
+    user-secret-key: hurryjiaclear
+    user-ttl: 72000000
+    user-token-name: authentication
   alioss:
     endpoint: ${yummy.alioss.endpoint}
     access-key-id: ${yummy.alioss.access-key-id}
@@ -51,4 +54,8 @@ yummy:
   file:
     upload-dir: ${yummy.file.upload-dir}
     access-url: ${yummy.file.access-url}
+  wechat:
+    appid: ${yummy.wechat.appid}
+    secret: ${yummy.wechat.secret}
+
 
