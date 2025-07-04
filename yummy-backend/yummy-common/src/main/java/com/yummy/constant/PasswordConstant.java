@@ -2,6 +2,7 @@ package com.yummy.constant;
 
 /**
  * 密码常量
+ * Password constant
  */
 public class PasswordConstant {
 

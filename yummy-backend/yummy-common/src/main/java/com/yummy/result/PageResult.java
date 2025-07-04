@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 封装分页查询结果
+ * Encapsulate pagination query results
  */
 @Data
 @AllArgsConstructor
@@ -16,7 +17,9 @@ import java.util.List;
 public class PageResult implements Serializable {
 
     private long total; //总记录数
+    // Total records
 
     private List records; //当前页数据集合
+    // Current page data collection
 
 }

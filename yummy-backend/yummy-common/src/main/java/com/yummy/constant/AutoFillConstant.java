@@ -2,6 +2,7 @@ package com.yummy.constant;
 
 /**
  * 公共字段自动填充相关常量
+ * Constants related to automatic filling of common fields
  */
 public class AutoFillConstant {
     /**

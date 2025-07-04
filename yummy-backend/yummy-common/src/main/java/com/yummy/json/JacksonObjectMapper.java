@@ -19,8 +19,11 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKN
 
 /**
  * 对象映射器:基于jackson将Java对象转为json，或者将json转为Java对象
+ * Object mapper: based on Jackson, convert Java objects to JSON, or convert JSON to Java objects
  * 将JSON解析为Java对象的过程称为 [从JSON反序列化Java对象]
+ * The process of parsing JSON into Java objects is called [deserializing Java objects from JSON]
  * 从Java对象生成JSON的过程称为 [序列化Java对象到JSON]
+ * The process of generating JSON from Java objects is called [serializing Java objects to JSON]
  */
 public class JacksonObjectMapper extends ObjectMapper {
 
