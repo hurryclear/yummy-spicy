@@ -24,7 +24,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
     private JwtProperties jwtProperties;
 
     /**
-     * 校验jwt
+     * validate jwt token 校验jwt
      *
      * @param request
      * @param response
@@ -48,7 +48,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             log.info("check jwt token:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
-            log.info("id of the current employee：", empId);
+            log.info("id of the current employee：{}", empId);
             BaseContext.setCurrentId(empId);
             // 3. pass => true
             return true;
