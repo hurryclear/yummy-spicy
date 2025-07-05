@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +34,7 @@ public class UserController {
     @ApiOperation("wechat login")
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO) {
         log.info("wechat user login: {}", userLoginDTO.getCode());
-        // wechat login
+        // WeChat login
         User user = userService.wcLogin(userLoginDTO);
         // create jwt token
         Map<String, Object> claims = new HashMap<>();

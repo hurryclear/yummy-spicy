@@ -44,7 +44,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      * @param registry
      */
     protected void addInterceptors(InterceptorRegistry registry) {
-        log.info("开始注册自定义拦截器...");
+        log.info("register self-defined interceptor 开始注册自定义拦截器...");
         
         // Register admin JWT interceptor
         registry.addInterceptor(jwtTokenAdminInterceptor)
@@ -54,7 +54,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         // Register user JWT interceptor
         registry.addInterceptor(jwtTokenUserInterceptor)
                 .addPathPatterns("/user/**")
-                .excludePathPatterns("/user/login");
+                .excludePathPatterns("/user/user/login")
+                .excludePathPatterns("/user/shop/status");
     }
 
     /**
