@@ -482,7 +482,14 @@
 ## Restaurant status
 
 - no need to create a new table in MySQL for restaurant status, we use Redis!
-- 
+
+
+
+## Client
+
+### WeChat Login
+
+
 
 # Redis
 
@@ -515,4 +522,3 @@
   </dependency>
   ```
 
-- 
