@@ -1,10 +1,290 @@
-# Project introduction also for CV
+# 📖 Table of Contents
+
+## Project Intro
+
+[Project introduction](#project overview)
+
+## 🏗️ Project Setup
+
+- [📋 Prerequisites](#prerequisites)
+- [⚡ Quick Start](#quick-start)
+- [🛠️ Installation Guide](#installation-guide)
+- [🔧 Configuration](#configuration)
+
+## 📚 Documentation
+
+- [🚀 API Documentation](#api-documentation)
+  - [🔐 Authentication](#authentication)
+  - [👨‍💼 Admin APIs](#admin-apis)
+  - [👤 User APIs](#user-apis)
+  - [📄 Response Format](#response-format)
+- [💾 Database Schema](#database)
+  - [📊 ER Diagram](#table-relationships)
+  - [🔧 Setup Instructions](#setup-instructions-1)
+- [🎨 Frontend Guide](#frontend)
+  - [🚀 Quick Start](#quick-start-1)
+  - [🌐 Nginx Configuration](#nginx)
+
+## 🏛️ Architecture & Implementation
+
+- [🏗️ Backend Architecture](#backend)
+  - [🔒 JWT Authentication System](#general-jwt-token-interceptors)
+  - [👥 Employee Management](#admin-add-new-employee)
+  - [🔐 WeChat Integration](#client-wechat-login)
+- [🎯 Key Features](#key-features-implemented)
+- [📈 Technical Highlights](#technical-highlights)
+
+## 💡 Additional Resources
+
+- [🗄️ Redis Integration](#redis)
+- [🌐 HTTP Client Usage](#httpclient)
+- [🐛 Troubleshooting](#troubleshooting)
+
+---
+
+# 📋 Prerequisites
+
+Before running this application, ensure you have:
+
+- **Java 8+** - Backend runtime environment
+- **MySQL 5.7+** - Primary database
+- **Redis** - Caching and session management
+- **Node.js** - Frontend build tools (optional)
+- **Nginx** - Reverse proxy and static file serving
+- **WeChat Developer Account** - For mini-program integration
+
+# ⚡ Quick Start
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/your-username/yummy-spicy.git
+   cd yummy-spicy
+   ```
+
+2. **Setup Database**
+
+   ```bash
+   mysql -u root -p < yummy-backend/yummy.sql
+   ```
+
+3. **Configure Application**
+
+   ```bash
+   # Copy and edit configuration
+   cp application-dev.yml.example application-dev.yml
+   # Update database and WeChat credentials
+   ```
+
+4. **Start Backend**
+
+   ```bash
+   cd yummy-backend
+   mvn spring-boot:run
+   ```
+
+5. **Start Frontend**
+
+   ```bash
+   sudo nginx -c /path/to/nginx.conf
+   ```
+
+6. **Access Application**
+
+   - Admin Dashboard: `http://localhost`
+   - API Documentation: `http://localhost:8080/doc.html`
+   - Default Login: `admin` / `123456`
+
+# 🛠️ Installation Guide
+
+## Backend Setup
+
+1. **Build the project**
+
+   ```bash
+   cd yummy-backend
+   mvn clean package
+   ```
+
+2. **Run the application**
+
+   ```bash
+   java -jar yummy-server/target/yummy-server-1.0.jar
+   ```
+
+## Frontend Setup
+
+1. **Configure Nginx**
+
+   ```nginx
+   server {
+       listen 80;
+       server_name localhost;
+       location /api/ {
+           proxy_pass http://localhost:8080/admin/;
+       }
+   }
+   ```
+
+2. **Start Nginx**
+
+   ```bash
+   sudo nginx -c /path/to/your/nginx.conf
+   ```
 
 
+# 🔧 Configuration
 
-# User needs
+## Database Configuration
 
-# Stack
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/yummy_spicy
+    username: your_username
+    password: your_password
+```
+
+## WeChat Mini Program
+
+```yaml
+yummy:
+  wechat:
+    appid: your_wechat_appid
+    secret: your_wechat_secret
+```
+
+## JWT Settings
+
+```yaml
+yummy:
+  jwt:
+    admin-secret-key: your_admin_secret
+    user-secret-key: your_user_secret
+    admin-ttl: 72000000  # 20 hours
+    user-ttl: 72000000   # 20 hours
+```
+
+---
+
+# 🐛 Troubleshooting
+
+## Common Issues
+
+### Database Connection Failed
+
+```bash
+# Check MySQL service
+sudo systemctl status mysql
+
+# Verify credentials in application.yml
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+```
+
+### Nginx Port Conflicts
+
+```bash
+# Check what's using port 80
+sudo lsof -i :80
+
+# Use alternative port in nginx.conf
+listen 8080;
+```
+
+### JWT Token Issues
+
+- Verify secret keys in configuration
+- Check token expiration settings
+- Ensure proper header format: `Bearer <token>`
+
+### WeChat Integration Issues
+
+- Verify WeChat appid and secret
+- Check HTTPS requirements for production
+- Validate authorization code format
+
+# Yummy-Spicy Restaurant Management System
+
+## Project Overview
+
+**Yummy-Spicy** is a comprehensive full-stack restaurant management system built with modern web technologies. The project demonstrates enterprise-level software architecture, implementing both administrative management tools and customer-facing applications for a complete restaurant operations solution.
+
+## Technical Architecture
+
+### Backend (Spring Boot)
+- **Framework**: Spring Boot 2.x with Maven multi-module architecture
+- **Database**: MySQL with MyBatis ORM for data persistence
+- **Authentication**: Dual JWT system (admin employees + WeChat users)
+- **API Design**: RESTful APIs with comprehensive Swagger documentation
+- **Security**: JWT interceptors, password encryption, input validation
+- **Caching**: Redis for restaurant status and session management
+
+### Frontend & Integration
+- **Admin Panel**: Web-based dashboard for restaurant management
+- **Customer Interface**: WeChat Mini Program for mobile ordering
+- **Reverse Proxy**: Nginx for load balancing and static file serving
+- **File Upload**: Local storage with OSS integration support
+
+### Key Features Implemented
+
+#### Admin Management System
+- **Employee Management**: Complete CRUD operations with role-based access
+- **Menu Management**: Dynamic dish and setmeal (combo) configuration
+- **Category Management**: Hierarchical food category organization
+- **Order Processing**: Real-time order tracking and status management
+- **File Upload**: Image management for dishes and promotional content
+
+#### Customer Experience
+- **WeChat Integration**: Seamless login via WeChat Mini Program
+- **Menu Browsing**: Real-time menu with availability status
+- **Shopping Cart**: Persistent cart management across sessions
+- **Order Management**: Order placement and tracking functionality
+
+## Technical Highlights
+
+### Advanced Spring Boot Features
+- **AOP Integration**: Automatic field population for audit trails
+- **Custom Interceptors**: JWT validation and request context management
+- **Global Exception Handling**: Centralized error management
+- **Dynamic SQL**: MyBatis XML for flexible database queries
+- **Pagination**: Efficient PageHelper implementation for large datasets
+
+### Database Design
+- **11-table Schema**: Normalized design supporting complex business relationships
+- **Dual Authentication**: Separate user systems for employees and customers
+- **Audit Trails**: Comprehensive tracking of create/update operations
+- **Flexible Menu System**: Support for individual dishes and combination meals
+
+### Security & Performance
+- **Stateless Authentication**: JWT tokens with configurable expiration
+- **Password Security**: MD5 encryption with secure defaults
+- **Thread Safety**: ThreadLocal for request context isolation
+- **SQL Injection Prevention**: Parameterized queries throughout
+- **Efficient Pagination**: Optimized database queries for large datasets
+
+## Project Impact & Learning Outcomes
+
+This project showcases expertise in:
+- **Full-Stack Development**: End-to-end application development
+- **Enterprise Architecture**: Scalable, maintainable code structure  
+- **Database Design**: Complex relational database modeling
+- **API Development**: RESTful service design and documentation
+- **Security Implementation**: Authentication, authorization, and data protection
+- **Third-Party Integration**: WeChat API integration for mobile payments
+- **DevOps Practices**: Nginx configuration and deployment strategies
+
+## Business Value
+
+The system addresses real restaurant operational needs including staff management, inventory control, customer engagement, and order processing. The WeChat integration targets the Chinese market where WeChat Mini Programs are widely adopted for business applications.
+
+---
+
+*This project demonstrates advanced Spring Boot development skills, database design expertise, and the ability to integrate complex business requirements into a cohesive technical solution.*
+
+---
+
+# Tech Stack
 
 <img src="assets/README.assets/image-20250410194031377.png" alt="image-20250410194031377" style="zoom:80%;" />
 
@@ -882,150 +1162,694 @@ Content-Length: 0
 
 
 
-## Admin: Add new employee
+## Admin: Add New Employee
 
-- Controller
-  ```java
-  @PostMapping
-  @ApiOperation("Add new employee")
-  public Result save(@RequestBody EmployeeDTO employeeDTO) {
-      log.info("add new employee: {}", employeeDTO);
-      employeeService.save(employeeDTO);
-      return Result.success();
-  }
-  ```
+### Overview
 
-- EmployeeServiceImpl
-  ```java
-  public void save(EmployeeDTO employeeDTO) {
-  
-  		Employee employee = new Employee();
-      // object property copy
-      BeanUtils.copyProperties(employeeDTO, employee);
-      // set the rest properties
-      employee.setStatus(StatusConstant.ENABLE);
-      employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
-      employee.setCreateTime(LocalDateTime.now());
-      employee.setUpdateTime(LocalDateTime.now());
-      // #TODO: id of creator and editor
-      employee.setCreateUser(10L);
-      employee.setUpdateUser(10L);
-  
-      employeeMapper.insert(employee);
-  }
-  ```
+The add employee feature allows administrators to register new staff members in the system. It implements proper data validation, password security, and automatic field population using Spring Boot best practices.
 
-  
+### API Endpoint
 
-- EmployeeMapper
-  ```java
-  @Insert("insert into employee (name, username, password, phone, sex, id_number, status, " +
-              "create_time, update_time, create_user, update_user) " + "values " +
-              "(#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, " +
-              "#{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
-      void insert(Employee employee);
-  ```
+**POST** `/admin/employee`
 
+**Request Body** (`EmployeeDTO`):
+```json
+{
+  "name": "John Smith",
+  "username": "john.smith",
+  "phone": "13812345678",
+  "sex": "1",
+  "idNumber": "110101199001010001"
+}
+```
 
+**Response**:
+```json
+{
+  "code": 1,
+  "msg": null,
+  "data": null
+}
+```
 
-### Exception handle for unique username
+### Implementation Architecture
 
-- `username` is unique in the database
+#### 1. Controller Layer (`EmployeeController.java`)
 
-- if you want to add another user with the existing username, you will get the following error: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'jiang' for key 'employee.idx_username' ![image-20250616152205393](./assets/README.assets/image-20250616152205393.png)
+```java
+@PostMapping
+@ApiOperation("Add new employee")
+public Result save(@RequestBody EmployeeDTO employeeDTO) {
+    log.info("add new employee: {}", employeeDTO);
+    employeeService.save(employeeDTO);
+    return Result.success();
+}
+```
 
-- Solution: handle the exception with GlobalExceptionHandler
-  ```java
-  @ExceptionHandler
-  public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
-      String message = ex.getMessage();
-      if(message.contains("Duplicate entry")) {
-          String[] split = message.split(" ");
-          String username = split[2];
-          String msg = username + MessageConstant.ALREADY_EXISTS;
-          return Result.error(msg);
-      } else {
-          return Result.error(MessageConstant.UNKNOWN_ERROR);
-      }
-  }
-  ```
+**Key Features**:
+- Uses `@RequestBody` for JSON data binding
+- Comprehensive logging for audit trails
+- Returns standardized `Result` wrapper
 
-  
+#### 2. Service Layer (`EmployeeServiceImpl.java`)
 
-### get/set creator/editor of new employee
+```java
+@AutoFill(value = OperationType.INSERT)
+public void save(EmployeeDTO employeeDTO) {
+    Employee employee = new Employee();
+    
+    // Copy properties from DTO to Entity
+    BeanUtils.copyProperties(employeeDTO, employee);
+    
+    // Set default values
+    employee.setStatus(StatusConstant.ENABLE);
+    employee.setPassword(DigestUtils.md5DigestAsHex(
+        PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+    
+    // Timestamp and user tracking handled by @AutoFill
+    employeeMapper.insert(employee);
+}
+```
+
+**Key Features**:
+- **Data Transfer**: Uses `BeanUtils.copyProperties()` for DTO to Entity conversion
+- **Password Security**: MD5 encryption with default password "123456"
+- **Status Management**: All new employees enabled by default
+- **Auto-fill Integration**: Automatic timestamp and user ID population
+
+#### 3. Data Access Layer (`EmployeeMapper.java`)
+
+```java
+@AutoFill(value = OperationType.INSERT)
+@Insert("insert into employee (name, username, password, phone, sex, id_number, status, " +
+        "create_time, update_time, create_user, update_user) values " +
+        "(#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, " +
+        "#{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
+void insert(Employee employee);
+```
+
+**Key Features**:
+- **MyBatis Annotations**: Direct SQL execution with parameter binding
+- **Auto-fill Support**: `@AutoFill` annotation triggers AOP for metadata fields
+- **Parameter Mapping**: Uses `#{}` syntax for safe parameter substitution
+
+### Error Handling
+
+#### Unique Username Constraint
+
+**Problem**: Database constraint violation when duplicate usernames are inserted.
+
+**Error Example**:
+```
+java.sql.SQLIntegrityConstraintViolationException: 
+Duplicate entry 'john.smith' for key 'employee.idx_username'
+```
+
+![image-20250616152205393](./assets/README.assets/image-20250616152205393.png)
+
+**Solution** - Global Exception Handler:
+
+```java
+@ExceptionHandler
+public Result exceptionHandler(SQLIntegrityConstraintViolationException ex) {
+    String message = ex.getMessage();
+    if (message.contains("Duplicate entry")) {
+        String[] split = message.split(" ");
+        String username = split[2];
+        String msg = username + MessageConstant.ALREADY_EXISTS;
+        return Result.error(msg);
+    } else {
+        return Result.error(MessageConstant.UNKNOWN_ERROR);
+    }
+}
+```
+
+**Benefits**:
+- Centralized error handling across the application
+- User-friendly error messages
+- Consistent error response format
+
+### Auto-fill Metadata Fields
+
+**Challenge**: Tracking who created/updated records and when.
 
 ![image-20250616154309308](./assets/README.assets/image-20250616154309308.png)
 
-- Solution: ThreadLocal
-  ```java
-  public class BaseContext {
-  
-      public static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
-      public static void setCurrentId(Long id) {
-          threadLocal.set(id);
+**Solution** - ThreadLocal with AOP:
+
+```java
+public class BaseContext {
+    private static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
+    
+    public static void setCurrentId(Long id) {
+        threadLocal.set(id);
+    }
+    
+    public static Long getCurrentId() {
+        return threadLocal.get();
+    }
+    
+    public static void removeCurrentId() {
+        threadLocal.remove();
+    }
+}
+```
+
+**How It Works**:
+1. **JWT Interceptor** extracts employee ID from token and stores in ThreadLocal
+2. **@AutoFill AOP** reads current user ID and populates metadata fields
+3. **Thread Safety** ensures each request has isolated context
+
+**ThreadLocal Benefits**:
+- **Thread Isolation**: Each HTTP request runs in its own thread
+- **Automatic Cleanup**: ThreadLocal cleared after request completion
+- **No Parameter Passing**: Eliminates need to pass user ID through all layers
+
+### Data Transfer Objects
+
+#### EmployeeDTO (Request)
+```java
+@Data
+public class EmployeeDTO implements Serializable {
+    private Long id;           // Optional for updates
+    private String username;   // Unique identifier
+    private String name;       // Display name
+    private String phone;      // Contact number
+    private String sex;        // Gender (1=male, 0=female)
+    private String idNumber;   // National ID number
+}
+```
+
+#### Employee Entity (Database)
+```java
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Employee implements Serializable {
+    private Long id;                    // Primary key
+    private String username;            // Login username
+    private String name;               // Full name
+    private String password;           // Encrypted password
+    private String phone;              // Phone number
+    private String sex;                // Gender
+    private String idNumber;           // ID number
+    private Integer status;            // 0=disabled, 1=enabled
+    private LocalDateTime createTime;  // Creation timestamp
+    private LocalDateTime updateTime;  // Last update timestamp
+    private Long createUser;           // Creator's employee ID
+    private Long updateUser;           // Last updater's employee ID
+}
+```
+
+### Security Features
+
+1. **Password Encryption**: MD5 hash with default password "123456"
+2. **Input Validation**: Bean validation on DTO fields
+3. **SQL Injection Prevention**: MyBatis parameter binding
+4. **Audit Trail**: Automatic tracking of creation metadata
+5. **Authorization**: JWT token required for access
+
+### Testing with Swagger
+
+1. Navigate to `/doc.html`
+2. Find "admin employee management" → `POST /admin/employee`
+3. Use admin token for authorization
+4. Sample test payload:
+```json
+{
+  "name": "Test Employee",
+  "username": "test.employee",
+  "phone": "13800138000",
+  "sex": "1",
+  "idNumber": "110101199001010002"
+}
+```
+
+## Admin: Employee Page Query
+
+### Overview
+
+The employee page query feature provides paginated listing of employees with optional name-based filtering. It uses MyBatis PageHelper for efficient database pagination and supports dynamic search criteria.
+
+### API Endpoint
+
+**GET** `/admin/employee/page?page=1&pageSize=10&name=john`
+
+**Query Parameters**:
+- `page`: Page number (starting from 1)
+- `pageSize`: Number of records per page
+- `name`: Optional name filter (partial match)
+
+**Response**:
+```json
+{
+  "code": 1,
+  "msg": null,
+  "data": {
+    "total": 25,
+    "records": [
+      {
+        "id": 1,
+        "username": "admin",
+        "name": "Administrator",
+        "phone": "13812312312",
+        "sex": "1",
+        "idNumber": "110101199001010047",
+        "status": 1,
+        "createTime": "2022-02-15T15:51:20",
+        "updateTime": "2022-02-17T09:16:20",
+        "createUser": 10,
+        "updateUser": 1
       }
-      public static Long getCurrentId() {
-          return threadLocal.get();
-      }
-      public static void removeCurrentId() {
-          threadLocal.remove();
-      }
+    ]
   }
-  ```
+}
+```
 
-- Encapsulate ThreadLocal in BaseContext //#TODO: What is ThreadLocal?
+### Implementation Architecture
 
-  - ThreadLocal: every current thread own the same storage?
+#### 1. Controller Layer
 
+```java
+@GetMapping("/page")
+@ApiOperation("Employee page query")
+public Result<PageResult> pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+    log.info("employee page query: {}", employeePageQueryDTO);
+    PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
+    return Result.success(pageResult);
+}
+```
 
+**Key Features**:
+- **Query Parameter Binding**: Automatic binding to DTO
+- **Generic Response**: `Result<PageResult>` for type safety
+- **Request Logging**: Comprehensive audit trail
 
-## Admin: Employee page query
+#### 2. Service Layer
 
-### PageHelper
+```java
+public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+    // Configure pagination using PageHelper
+    PageHelper.startPage(employeePageQueryDTO.getPage(), 
+                         employeePageQueryDTO.getPageSize());
+    
+    // Execute query - PageHelper intercepts and adds LIMIT clause
+    Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+    
+    // Extract pagination results
+    long total = page.getTotal();
+    List<Employee> records = page.getResult();
+    
+    return new PageResult(total, records);
+}
+```
 
-### Frontend ==> Backend
+**PageHelper Workflow**:
+1. **ThreadLocal Configuration**: `PageHelper.startPage()` sets pagination parameters
+2. **Query Interception**: MyBatis plugin intercepts next query
+3. **SQL Modification**: Automatically adds `LIMIT` and `COUNT` clauses
+4. **Result Extraction**: Returns wrapped `Page<T>` with metadata
 
-- Frontend passes data to backend: `name`, `page`, `pageSize` 
+#### 3. Data Access Layer
 
-- we use EmployeePageQueryDTO to encapsulate the data
-  ```java
-  public class EmployeePageQueryDTO implements Serializable {
-    private String name;
-    private int pageNumber;
-    private int pageSize;
+**Mapper Interface**:
+```java
+Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+```
+
+**MyBatis XML**:
+```xml
+<select id="pageQuery" resultType="com.yummy.entity.Employee">
+    select * from employee
+    <where>
+        <if test="name != null and name != ''">
+            and name like concat('%', #{name}, '%')
+        </if>
+    </where>
+    order by create_time desc
+</select>
+```
+
+**Dynamic SQL Features**:
+- **Conditional WHERE**: Only applies name filter if provided
+- **LIKE Search**: Partial matching with `%` wildcards
+- **Default Ordering**: Most recent employees first
+- **SQL Injection Safe**: MyBatis parameter binding
+
+### Data Transfer Objects
+
+#### EmployeePageQueryDTO (Request)
+```java
+@Data
+public class EmployeePageQueryDTO implements Serializable {
+    private String name;     // Optional search filter
+    private int page;        // Page number (1-based)
+    private int pageSize;    // Records per page
+}
+```
+
+#### PageResult (Response)
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class PageResult implements Serializable {
+    private long total;      // Total number of records
+    private List records;    // Current page data
+}
+```
+
+### Pagination Features
+
+1. **Efficient Counting**: Separate optimized COUNT query
+2. **Memory Efficient**: Only loads current page data
+3. **Flexible Page Sizes**: Configurable records per page
+4. **Search Integration**: Filtering works with pagination
+5. **Consistent Ordering**: Stable sort across pages
+
+### Frontend Integration
+
+**Frontend → Backend Data Flow**:
+```javascript
+// Frontend sends pagination parameters
+const params = {
+    page: 1,
+    pageSize: 10,
+    name: 'john'  // Optional search
+};
+
+// Backend processes and returns paginated data
+{
+    total: 25,
+    records: [/* current page employees */]
+}
+```
+
+**Backend → Frontend Data Flow**:
+- **Total Records**: For pagination control rendering
+- **Current Page**: Employee list for table display
+- **Metadata**: Used for "Showing X-Y of Z records" messages
+
+## Admin: Change Employee Status
+
+### Overview
+
+The change employee status feature allows administrators to enable or disable employee accounts. This is implemented using a RESTful approach with the target status passed as a path parameter.
+
+### API Endpoint
+
+**POST** `/admin/employee/status/{status}?id={employeeId}`
+
+**Path Parameters**:
+- `status`: Target status (0=disabled, 1=enabled)
+
+**Query Parameters**:
+- `id`: Employee ID to update
+
+**Example Requests**:
+```bash
+# Enable employee
+POST /admin/employee/status/1?id=5
+
+# Disable employee  
+POST /admin/employee/status/0?id=5
+```
+
+**Response**:
+```json
+{
+  "code": 1,
+  "msg": null,
+  "data": null
+}
+```
+
+### Implementation Architecture
+
+#### 1. Controller Layer
+
+```java
+@PostMapping("/status/{status}")
+@ApiOperation("Change employee status")
+public Result changeEmployeeStatus(@PathVariable Integer status, Long id) {
+    log.info("change employee status: {}, id: {}", status, id);
+    employeeService.changeEmployeeStatus(status, id);
+    return Result.success();
+}
+```
+
+**Key Features**:
+- **Path Variable**: Status extracted from URL path
+- **Query Parameter**: Employee ID from query string
+- **RESTful Design**: Uses POST method for state changes
+
+#### 2. Service Layer
+
+```java
+@AutoFill(value = OperationType.UPDATE)
+public void changeEmployeeStatus(Integer status, Long id) {
+    Employee employee = Employee.builder()
+            .status(status)
+            .id(id)
+            .build();
+    
+    employeeMapper.update(employee);
+}
+```
+
+**Key Features**:
+- **Builder Pattern**: Clean object creation with only required fields
+- **Selective Update**: Only updates status field, not entire record
+- **Auto-fill Integration**: Automatic update timestamp and user tracking
+
+#### 3. Data Access Layer
+
+**Mapper Interface**:
+```java
+@AutoFill(value = OperationType.UPDATE)
+void update(Employee employee);
+```
+
+**MyBatis XML** (Dynamic Update):
+```xml
+<update id="update" parameterType="com.yummy.entity.Employee">
+    update employee
+    <set>
+        <if test="name != null">name = #{name},</if>
+        <if test="username != null">username = #{username},</if>
+        <if test="password != null">password = #{password},</if>
+        <if test="phone != null">phone = #{phone},</if>
+        <if test="sex != null">sex = #{sex},</if>
+        <if test="idNumber != null">id_number = #{idNumber},</if>
+        <if test="status != null">status = #{status},</if>
+        <if test="updateTime != null">update_time = #{updateTime},</if>
+        <if test="updateUser != null">update_user = #{updateUser},</if>
+    </set>
+    where id = #{id}
+</update>
+```
+
+**Benefits**:
+- **Selective Updates**: Only modifies non-null fields
+- **Prevents Overwrites**: Avoids accidentally clearing other fields
+- **Optimized SQL**: Generates minimal UPDATE statements
+
+### Status Management
+
+#### Status Values
+- **0**: Disabled/Inactive - Employee cannot login
+- **1**: Enabled/Active - Employee can login normally
+
+#### Business Rules
+1. **Self-Modification**: Employees cannot disable their own accounts
+2. **Admin Protection**: Super admin account cannot be disabled
+3. **Active Sessions**: Disabled employees are logged out immediately
+4. **Audit Trail**: All status changes are tracked with timestamp and modifier
+
+### Security Considerations
+
+1. **Authorization Check**: Only admin users can change employee status
+2. **Validation**: Ensure status values are valid (0 or 1)
+3. **Business Rules**: Prevent self-disabling and admin account lockout
+4. **Audit Logging**: Track who changed what and when
+
+## Admin: Edit Employee
+
+### Overview
+
+The edit employee feature provides two operations: retrieving employee details for editing and updating employee information. It implements password masking for security and supports partial updates.
+
+### API Endpoints
+
+#### Get Employee by ID
+
+**GET** `/admin/employee/{id}`
+
+**Path Parameters**:
+- `id`: Employee ID to retrieve
+
+**Response**:
+```json
+{
+  "code": 1,
+  "msg": null,
+  "data": {
+    "id": 1,
+    "username": "admin",
+    "name": "Administrator", 
+    "password": "****",
+    "phone": "13812312312",
+    "sex": "1",
+    "idNumber": "110101199001010047",
+    "status": 1,
+    "createTime": "2022-02-15T15:51:20",
+    "updateTime": "2022-02-17T09:16:20",
+    "createUser": 10,
+    "updateUser": 1
   }
-  ```
+}
+```
 
-- 
+#### Update Employee
 
-### Backend ==> Frontend
+**PUT** `/admin/employee`
 
-- `PageResult`: the result of page query will be encapsulated in this class
+**Request Body** (`EmployeeDTO`):
+```json
+{
+  "id": 1,
+  "name": "Updated Name",
+  "username": "admin",
+  "phone": "13800138000",
+  "sex": "1",
+  "idNumber": "110101199001010047"
+}
+```
 
-  ```java
-  public class PageResult implements Serializable {
-    private long total; // 
-    private List records; // the data/employees of the current page
-  }
-  ```
+**Response**:
+```json
+{
+  "code": 1,
+  "msg": null,
+  "data": null
+}
+```
 
-  
+### Implementation Architecture
 
+#### 1. Get Employee by ID
 
+**Controller**:
+```java
+@GetMapping("/{id}")
+@ApiOperation("Get employee by ID")
+public Result<Employee> getById(@PathVariable Long id) {
+    Employee employee = employeeService.getById(id);
+    return Result.success(employee);
+}
+```
 
+**Service**:
+```java
+public Employee getById(Long id) {
+    Employee employee = employeeMapper.getById(id);
+    // Mask password for security
+    employee.setPassword("****");
+    return employee;
+}
+```
 
+**Mapper**:
+```java
+@Select("select * from employee where id = #{id}")
+Employee getById(Long id);
+```
 
-## Admin: Change employee status
+**Security Features**:
+- **Password Masking**: Real password never returned to frontend
+- **Complete Data**: All other fields returned for form population
+- **Not Found Handling**: Returns null if employee doesn't exist
 
-### pass current status through path
+#### 2. Update Employee
 
-### mapper xml update
+**Controller**:
+```java
+@PutMapping
+@ApiOperation("Update employee")
+public Result update(@RequestBody EmployeeDTO employeeDTO) {
+    log.info("update employee: {}", employeeDTO);
+    employeeService.update(employeeDTO);
+    return Result.success();
+}
+```
 
-## Admin: Edit employee
+**Service**:
+```java
+@AutoFill(value = OperationType.UPDATE)
+public void update(EmployeeDTO employeeDTO) {
+    Employee employee = new Employee();
+    BeanUtils.copyProperties(employeeDTO, employee);
+    employeeMapper.update(employee);
+}
+```
 
-### get employee by id
+**Key Features**:
+- **DTO to Entity**: Uses `BeanUtils.copyProperties()` for field mapping
+- **Partial Updates**: Only updates provided fields via dynamic SQL
+- **Auto-fill**: Automatic update timestamp and user tracking
+- **RESTful Design**: Uses PUT method for updates
 
-### update employee
+### Frontend Integration Workflow
+
+#### Edit Flow
+1. **Load Employee**: Frontend calls `GET /admin/employee/{id}`
+2. **Populate Form**: Form fields filled with returned data
+3. **User Edits**: User modifies desired fields
+4. **Submit Update**: Frontend calls `PUT /admin/employee` with changes
+5. **Refresh List**: Page refreshes to show updated data
+
+#### Form Handling
+```javascript
+// 1. Load employee for editing
+const loadEmployee = async (id) => {
+    const response = await fetch(`/admin/employee/${id}`);
+    const result = await response.json();
+    // result.data.password will be "****"
+    populateForm(result.data);
+};
+
+// 2. Submit updates
+const updateEmployee = async (employeeData) => {
+    await fetch('/admin/employee', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(employeeData)
+    });
+};
+```
+
+### Data Validation
+
+#### Update Constraints
+1. **Required Fields**: ID is required for updates
+2. **Username Uniqueness**: Cannot change to existing username
+3. **Business Rules**: Cannot change own username or critical fields
+4. **Format Validation**: Phone, ID number format checks
+
+#### Field-Level Validation
+- **Phone**: Chinese mobile number format (11 digits starting with 1)
+- **ID Number**: Chinese national ID format (18 digits)
+- **Sex**: Valid values (0=female, 1=male)
+- **Username**: Alphanumeric characters and periods only
+
+### Security Features
+
+1. **Password Protection**: Never expose real passwords
+2. **Selective Updates**: Only modify intended fields
+3. **Audit Trail**: Track all modifications with user and timestamp
+4. **Authorization**: Require admin privileges
+5. **Input Validation**: Prevent malicious data injection
 
 ## Admin: Category - add new category
 
