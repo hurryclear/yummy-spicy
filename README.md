@@ -2,7 +2,7 @@
 
 ## Project Intro
 
-[Project introduction](#project overview)
+- [Project Introduction](#project overview)
 
 ## 🏗️ Project Setup
 
