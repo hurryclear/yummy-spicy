@@ -2,7 +2,7 @@
 
 ## Project Intro
 
-- [Project Introduction](#project overview)
+- [Project Introduction](#project-overview) 
 
 ## 🏗️ Project Setup
 
@@ -1157,10 +1157,6 @@ Content-Length: 0
 3. **Logout**: Clear tokens on client logout
 4. **HTTPS**: Always use HTTPS in production
 5. **Monitoring**: Log authentication failures for security analysis
-
-
-
-
 
 ## Admin: Add New Employee
 
@@ -2320,6 +2316,8 @@ Use Swagger UI to test the login endpoint:
 5. **Store JWT tokens securely** on client side
 
 
+
+## Client: 
 
 # Redis
 
