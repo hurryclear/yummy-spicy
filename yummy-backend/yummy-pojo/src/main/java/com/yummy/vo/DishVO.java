@@ -18,23 +18,23 @@ import java.util.List;
 public class DishVO implements Serializable {
 
     private Long id;
-    //菜品名称
+    // dish name
     private String name;
-    //菜品分类id
+    // dish category id 菜品分类id
     private Long categoryId;
-    //菜品价格
+    //dish price 菜品价格
     private BigDecimal price;
-    //图片
+    // image 图片
     private String image;
-    //描述信息
+    // description 描述信息
     private String description;
-    //0 停售 1 起售
+    // 0 out of business 1 on sale
     private Integer status;
-    //更新时间
+    // update time
     private LocalDateTime updateTime;
-    //分类名称
+    // category name 分类名称
     private String categoryName;
-    //菜品关联的口味
+    // with dish bounden flavors 菜品关联的口味
     private List<DishFlavor> flavors = new ArrayList<>();
 
     //private Integer copies;

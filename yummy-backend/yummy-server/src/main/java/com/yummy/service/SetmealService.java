@@ -21,7 +21,7 @@ public interface SetmealService {
     void changeStatus(Integer status, Long id);
 
     /**
-     * 条件查询
+     *
      * @param setmeal
      * @return
      */

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * JWT token interceptor for user authentication
  * Validates JWT tokens for WeChat user requests
+ * After user login all other requests need the jwt token to visit
  */
 @Component
 @Slf4j

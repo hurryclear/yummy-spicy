@@ -20,12 +20,12 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * search classification
+     * search catetory
      * @param type
      * @return
      */
     @GetMapping("/list")
-    @ApiOperation("Search classification")
+    @ApiOperation("Search category")
     public Result<List<Category>> list(Integer type) {
         List<Category> list = categoryService.list(type);
         return Result.success(list);
