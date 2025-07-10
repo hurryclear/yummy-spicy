@@ -14,10 +14,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -28,6 +30,8 @@ public class DishController {
 
     @Autowired
     private DishService dishService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * add new dish with flavors
@@ -40,6 +44,10 @@ public class DishController {
     public Result addWithFlavors(@RequestBody DishDTO dishDTO) {
         log.info("Add new dishes: {}", dishDTO);
         dishService.addWithFlavors(dishDTO);
+
+        // clear cache data
+        String key = "dish_" + dishDTO.getCategoryId();
+        clearCache(key);
         return Result.success();
     }
 
@@ -68,6 +76,12 @@ public class DishController {
     public Result delete(@RequestParam List<Long> ids) {
         log.info("Delete dishes: {}", ids);
         dishService.deleteByIds(ids);
+        // delete all key with "dish_"
+        // 1. find all keys opening with "dish_"
+        Set keys = redisTemplate.keys("dish_*");
+        // 2. delete all keys (collection)
+        redisTemplate.delete(keys);
+
         return Result.success();
     }
 
@@ -91,6 +105,8 @@ public class DishController {
     public Result update(@RequestBody DishDTO dishDTO) {
         log.info("update dish: {}", dishDTO);
         dishService.updateWithFlavor(dishDTO);
+        // delete all keys with "dish_"
+        clearCache("dish_*");
         return Result.success();
     }
 //    @GetMapping("/list/{categoryId}")
@@ -101,6 +117,22 @@ public class DishController {
          log.info("list dishes by category id: {}", categoryId);
          List<Dish> dishList = dishService.listByCategoryId(categoryId);
          return Result.success(dishList);
+    }
+
+    // #TODO update status of dish
+    @PutMapping("/status/{stauts}")
+    public Result<String> updateStatus(@PathVariable Integer stauts, Long id) {
+        // change status
+        // delete all keys with "dish_"
+        clearCache("dish_*");
+        return Result.success();
+    }
+
+
+    // method for clearing cache data
+    private void clearCache(String pattern) {
+        Set keys = redisTemplate.keys(pattern);
+        redisTemplate.delete(keys);
     }
 
 }

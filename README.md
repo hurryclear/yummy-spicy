@@ -2317,7 +2317,66 @@ Use Swagger UI to test the login endpoint:
 
 
 
-## Client: 
+## Client: List dishes in mini program
+
+## Client: Cache dish
+
+### Purpose
+
+When many users visit and send request to backend and read database, it will make read operation not efficient. To solve this problem we use Redis to store cache data, avoding read operation to database all the time
+
+### Architecture
+
+<img src="./assets/README.assets/image-20250710092707896.png" alt="image-20250710092707896" style="zoom:50%;" />
+
+### Analysis
+
+- one category will be stored as one cache data (one key-value)
+  - key: dish_{category id}
+  - value: dishes in this category (in string form)
+- when the dish data in database change, we have to clear the cache data (when should we clear cache data?) ==> when the api blow is invoked, the cache data should be cleared.
+  - update dish
+  - delete dish
+  - change status
+  - add new dish
+
+### Implementation
+
+#### User/DishController
+
+```java
+@GetMapping("/list")
+@ApiOperation("search dish by category id")
+public Result<List<DishVO>> list(Long categoryId) {
+
+    // redis key: "dish_" + categoryId
+    String key = "dish_" + categoryId;
+    // Does dish data exist in redis?
+    List<DishVO> list = (List<DishVO>) redisTemplate.opsForValue().get(key);
+    // 1. yes, exist
+    if (list != null && list.size() > 0) {
+        return Result.success(list);
+    }
+    // 2. no, doesn't exist
+    Dish dish = new Dish();
+    dish.setCategoryId(categoryId);
+    dish.setStatus(StatusConstant.ENABLE);// search which is on sale
+
+    list = dishService.listWithFlavor(dish);
+    redisTemplate.opsForValue().set(key, list);
+
+    return Result.success(list);
+}
+```
+
+#### Admin/DishController
+
+- clear cache in each operation (update, add new, change status...)
+- 
+
+## Client: Shopping cart
+
+
 
 # Redis
 
