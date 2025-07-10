@@ -2372,6 +2372,16 @@ public Result<List<DishVO>> list(Long categoryId) {
 #### Admin/DishController
 
 - clear cache in each operation (update, add new, change status...)
+
+## Client: Cache setmeal
+
+
+
+### Spring Cache
+
+- `@EnableCaching`
+- `@Cacheable`
+- `@CacheEvict`
 - 
 
 ## Client: Shopping cart
