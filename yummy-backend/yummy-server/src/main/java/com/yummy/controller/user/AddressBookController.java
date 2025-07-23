@@ -59,5 +59,16 @@ public class AddressBookController {
         return Result.success();
     }
 
+    /**
+     * set a default address
+     * @param addressBook
+     * @return
+     */
+    @PutMapping("/default")
+    @ApiOperation("set default address")
+    public Result setDefault(@RequestBody AddressBook addressBook) {
+        addressBookService.setDefault(addressBook);
+        return Result.success();
+    }
 
 }

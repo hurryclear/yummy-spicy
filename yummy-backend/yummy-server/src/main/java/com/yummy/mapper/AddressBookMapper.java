@@ -4,6 +4,7 @@ import com.yummy.entity.AddressBook;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface AddressBookMapper {
     AddressBook getById(Long id);
 
     void update(AddressBook addressBook);
+
+    @Update("update address_book set is_default = #{isDefault} where user_id = #{userId}")
+    void updateIsDefaultByUserId(AddressBook addressBook);
 }

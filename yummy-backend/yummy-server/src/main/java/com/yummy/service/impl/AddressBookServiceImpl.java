@@ -45,4 +45,18 @@ public class AddressBookServiceImpl implements AddressBookService {
     public void update(AddressBook addressBook) {
         addressBookMapper.update(addressBook);
     }
+
+    @Override
+    public void setDefault(AddressBook addressBook) {
+        // 1. set all addresses of the current user to not default
+        // update address_book set is_default = ? where user_id = ?
+        addressBook.setIsDefault(0);
+        addressBook.setUserId(BaseContext.getCurrentId());
+        addressBookMapper.updateIsDefaultByUserId(addressBook);
+
+        // 2. set the current address to default
+        // update address_book set is_default = ? where id = ?
+        addressBook.setIsDefault(1);
+        addressBookMapper.update(addressBook);
+    }
 }

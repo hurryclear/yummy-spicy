@@ -2410,6 +2410,10 @@ public Result<List<DishVO>> list(Long categoryId) {
   - get address by id
   - update address by id
 
+### Set default address
+
+
+
 # Redis
 
 - in-memory storage
