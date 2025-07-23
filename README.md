@@ -2386,7 +2386,11 @@ public Result<List<DishVO>> list(Long categoryId) {
 
 ## Client: Shopping cart
 
+### Add shopping cart
 
+- From Frontend: `dishId, setmealId, dishFlavor` and `ShoppingCartDTO`
+- Step 1: check if this shopping cart exists
+- Step 2: check if it is dish or setmeal
 
 # Redis
 
