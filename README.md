@@ -2404,7 +2404,11 @@ public Result<List<DishVO>> list(Long categoryId) {
 
 ### List addresses by userId
 
+### Update address book
 
+- here needs two api
+  - get address by id
+  - update address by id
 
 # Redis
 

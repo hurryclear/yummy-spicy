@@ -4,6 +4,7 @@ import com.yummy.context.BaseContext;
 import com.yummy.entity.AddressBook;
 import com.yummy.result.Result;
 import com.yummy.service.AddressBookService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,25 @@ public class AddressBookController {
         // why does here use addressBook as para for list? instead of userId?
         List<AddressBook> list = addressBookService.list(addressBook);
         return Result.success(list);
+    }
+
+    /**
+     * get address by id
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("get address by id")
+    public Result<AddressBook> getById(@PathVariable Long id) {
+        AddressBook addressBook = addressBookService.getById(id);
+        return Result.success(addressBook);
+    }
+
+    @PutMapping
+    @ApiOperation("update address by id")
+    public Result updateById(@RequestBody AddressBook addressBook) {
+        addressBookService.update(addressBook);
+        return Result.success();
     }
 
 
