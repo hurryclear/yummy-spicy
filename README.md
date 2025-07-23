@@ -2392,6 +2392,11 @@ public Result<List<DishVO>> list(Long categoryId) {
 - Step 1: check if this shopping cart exists
 - Step 2: check if it is dish or setmeal
 
+### List/Show shopping cart
+
+- show the shopping cart by userId
+- 
+
 # Redis
 
 - in-memory storage
