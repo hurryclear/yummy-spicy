@@ -71,4 +71,15 @@ public class AddressBookController {
         return Result.success();
     }
 
+    /**
+     * delete by id
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("delete address by id")
+    public Result deleteById(Long id) {
+        addressBookService.deleteById(id);
+        return Result.success();
+    }
 }

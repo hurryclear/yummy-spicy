@@ -2412,6 +2412,8 @@ public Result<List<DishVO>> list(Long categoryId) {
 
 ### Set default address
 
+### Delete address by id
+
 
 
 # Redis
