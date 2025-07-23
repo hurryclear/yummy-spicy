@@ -4,6 +4,8 @@ import com.yummy.entity.AddressBook;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface AddressBookMapper {
 
@@ -13,4 +15,6 @@ public interface AddressBookMapper {
             "values (#{userId}, #{consignee}, #{phone}, #{sex}, #{provinceCode}, #{provinceName}, #{cityCode}, #{cityName}," +
             "#{districtCode}, #{districtName}, #{detail}, #{label}, #{isDefault})")
     void insert(AddressBook addressBook);
+
+    List<AddressBook> list(AddressBook addressBook);
 }

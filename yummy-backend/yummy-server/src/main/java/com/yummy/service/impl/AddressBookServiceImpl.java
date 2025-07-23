@@ -7,6 +7,8 @@ import com.yummy.service.AddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AddressBookServiceImpl implements AddressBookService {
 
@@ -26,5 +28,10 @@ public class AddressBookServiceImpl implements AddressBookService {
         addressBook.setIsDefault(0);
         // insert with mapper
         addressBookMapper.insert(addressBook);
+    }
+
+    @Override
+    public List<AddressBook> list(AddressBook addressBook) {
+        return addressBookMapper.list(addressBook);
     }
 }
