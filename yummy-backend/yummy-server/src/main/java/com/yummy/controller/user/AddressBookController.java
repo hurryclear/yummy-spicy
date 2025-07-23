@@ -82,4 +82,25 @@ public class AddressBookController {
         addressBookService.deleteById(id);
         return Result.success();
     }
+
+    /**
+     * get the default address
+     * @return
+     */
+    @GetMapping("default")
+    @ApiOperation("get default address")
+    public Result<AddressBook> getDefault() {
+        //SQL:select * from address_book where user_id = ? and is_default = 1
+        AddressBook addressBook = new AddressBook();
+        addressBook.setIsDefault(1);
+        addressBook.setUserId(BaseContext.getCurrentId());
+        List<AddressBook> list = addressBookService.list(addressBook);
+
+        if (list != null && list.size() == 1) {
+            return Result.success(list.get(0));
+        }
+
+        return Result.error("No default address");
+    }
+
 }
