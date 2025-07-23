@@ -15,11 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AddressBookController {
 
     @Autowired
-    private final AddressBookService addressBookService;
-
-    public AddressBookController(AddressBookService addressBookService) {
-        this.addressBookService = addressBookService;
-    }
+    private AddressBookService addressBookService;
 
     /**
      * Add a new address
