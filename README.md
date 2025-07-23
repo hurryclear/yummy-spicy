@@ -2395,7 +2395,10 @@ public Result<List<DishVO>> list(Long categoryId) {
 ### List/Show shopping cart
 
 - show the shopping cart by userId
-- 
+
+### Clear shopping cart
+
+
 
 # Redis
 
