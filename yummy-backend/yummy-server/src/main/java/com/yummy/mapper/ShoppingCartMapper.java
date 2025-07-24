@@ -1,12 +1,8 @@
 package com.yummy.mapper;
 
 import com.yummy.entity.ShoppingCart;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
-import javax.management.MXBean;
 import java.util.List;
 
 @Mapper
@@ -27,4 +23,7 @@ public interface ShoppingCartMapper {
 
     @Delete("delete from shopping_cart where user_id = #{userId}")
     void deleteByUserId(Long userId);
+
+    @Select("select from shopping_cart where user_id = #{userId}")
+    ShoppingCart getByUserId(Long userId);
 }
