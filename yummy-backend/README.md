@@ -1,10 +1,12 @@
-# Intro
-
-- A Spring Boot–based RESTful backend for a restaurant ordering system, featuring authentication, role-based access control, and order lifecycle management.
-
+A Spring Boot–based RESTful backend for a restaurant ordering system. The system supports user authentication, role-based access control, order lifecycle management, and transactional consistency.
 
 # Feature
-
+- JWT-based authentication and authorization
+- Role-based access control (Admin / Employee / Customer)
+- Order lifecycle management with explicit status transitions
+- Transactional order creation
+- Pagination and filtering for order queries
+- Centralized exception handling
 # Tech stack
 (only as example)
 - Spring Boot (RESTful API)
