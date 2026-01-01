@@ -8,27 +8,29 @@
 
 - avoid exposing of Entity
 
-| Name                           | ..                                   |
-| ------------------------------ | ------------------------------------ |
-| Entity                         | ORM, database reflection             |
-| DTO (Data Transmission Object) | data transmitted through layers      |
-| VO (View Data)                 | for frontend, service ==> controller |
-| POJO                           | Java Object                          |
+| Name                           | Description                                         |
+| ------------------------------ | --------------------------------------------------- |
+| Entity                         | ORM, database reflection 与数据库映射                     |
+| DTO (Data Transmission Object) | data transmitted through layers                     |
+| VO (View Data)                 | for frontend, service ==> controller                |
+| POJO                           | Java Object with only attributes and getter, setter |
 
 - Why do we use DTO, VO instead of Entity directly?
 	- Because entities represent persistence concerns, while APIs should be decoupled from database structure.
 
-![image-20250611203907527](../assets/README.assets/image-20250611203907527.png)
-
 ## 1.3 Global Exception Handler (@ControllerAdvice / 自定义异常 / 错误码)
 
-- a centralized mechanism that catches and handles unhandled or unexpected exceptions that occur anywhere in the application ==> it avoids writing repetitive try-catch block in multiple places
-## 1.4 统一返回格式 (Response wrapper)
+- a **centralized mechanism** that 
+	- catches and handles unhandled or unexpected exceptions that occur anywhere in the application 
+	- ==> it avoids writing repetitive try-catch block in multiple places
+
+## 1.4 Unified Response Wrapper 统一返回格式
+
 
 # 2. Authentication and Authorization
 ## 2.1 JWT Token Interceptors
 
-The application uses Spring MVC interceptors to validate JWT tokens for both admin employees and WeChat users. These interceptors provide automatic authentication and authorization for protected endpoints.
+- The application uses Spring MVC interceptors to validate JWT tokens for both admin employees and WeChat users. These interceptors provide automatic authentication and authorization for protected endpoints.
 
 ### Overview
 
